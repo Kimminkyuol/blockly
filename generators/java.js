@@ -92,12 +92,22 @@ Java.init = function (workspace) {
 };
 
 Java.finish = function (code) {
-    const definitions = objectUtils.values(this.definitions_);
+    const imports = [];
+    const definitions = [];
+    for (let name in this.definitions_) {
+        const def = this.definitions_[name];
+        if (def.match(/^(from\s+\S+\s+)?import\s+\S+/)) {
+            imports.push(def);
+        } else {
+            definitions.push(def);
+        }
+    }
     code = Object.getPrototypeOf(this).finish.call(this, code);
     this.isInitialized = false;
 
     this.nameDB_.reset();
-    return definitions.join('\n\n') + '\n\n\n' + code
+    const allDefs = imports.join('\n') + '\n\n' + definitions.join('\n\n');
+    return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + '\n\n\n' + code;
 };
 
 Java.scrubNakedValue = function (line) {
