@@ -89,7 +89,7 @@ const NAMESPACE_OBJECT = '$';
  * The function getChunkOptions will, after running
  * closure-calculate-chunks, update each chunk to add the following
  * properties:
- * 
+ *
  * - .dependencies: a list of the chunks the chunk depends upon.
  * - .wrapper: the chunk wrapper.
  *
@@ -109,6 +109,10 @@ const chunks = [
     entry: 'blocks/all.js',
     exports: 'Blockly.Blocks',
     importAs: 'BlocklyBlocks',
+  }, {
+    name: 'java',
+    entry: 'generators/java/all.js',
+    exports: 'Blockly.Java',
   }, {
     name: 'javascript',
     entry: 'generators/javascript/all.js',
@@ -432,12 +436,12 @@ function getChunkOptions() {
   return {chunk: chunkList, js: rawOptions.js, chunk_wrapper: chunkWrappers};
 }
 
-/** 
+/**
  * RegExp that globally matches path.sep (i.e., "/" or "\").
  */
 const pathSepRegExp = new RegExp(path.sep.replace(/\\/, '\\\\'), "g");
 
-/** 
+/**
  * Modify the supplied gulp.rename path object to relax @package
  * restrictions in core/.
  *
@@ -503,7 +507,7 @@ function compile(options) {
 }
 
 /**
- * This task compiles the core library, blocks and generators, creating 
+ * This task compiles the core library, blocks and generators, creating
  * blockly_compressed.js, blocks_compressed.js, etc.
  *
  * The deps.js file must be up-to-date.
@@ -568,6 +572,7 @@ function buildAdvancedCompilationTest() {
  * This task builds all of Blockly:
  *     blockly_compressed.js
  *     blocks_compressed.js
+ *     java_compressed.js
  *     javascript_compressed.js
  *     python_compressed.js
  *     php_compressed.js

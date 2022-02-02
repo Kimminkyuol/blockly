@@ -214,6 +214,9 @@ function packageNode() {
         name: 'BlocklyBlocks',
         cjs: './blocks',
       },{
+        name: 'BlocklyJava',
+        cjs: './java',
+      },{
         name: 'BlocklyJS',
         cjs: './javascript',
       },{
@@ -271,6 +274,14 @@ function packageGenerator(file, rename, namespace) {
       }]))
     .pipe(gulp.rename(rename))
     .pipe(gulp.dest(RELEASE_DIR));
+};
+
+/**
+ * This task wraps java_compressed.js into a UMD module.
+ * @example import 'blockly/java;
+ */
+function packageJava() {
+    return packageGenerator('java_compressed.js', 'java.js', 'Java');
 };
 
 /**
@@ -428,6 +439,7 @@ const package = gulp.series(
         packageNodeCore,
         packageBlockly,
         packageBlocks,
+        packageJava,
         packageJavascript,
         packagePython,
         packageLua,
