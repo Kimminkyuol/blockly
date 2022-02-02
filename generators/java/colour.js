@@ -64,8 +64,8 @@ Java['colour_blend'] = function (block) {
         '    }',
         '    return String.format("#%02x%02x%02x", r, g, b);'
     ]);
-    const colour1 = Java.valueToCode(block, 'COLOUR1', Java.ORDER_NONE) || '\'#000000\'';
-    const colour2 = Java.valueToCode(block, 'COLOUR2', Java.ORDER_NONE) || '\'#000000\'';
+    const colour1 = Java.valueToCode(block, 'COLOUR1', Java.ORDER_NONE) || '\"#000000\"';
+    const colour2 = Java.valueToCode(block, 'COLOUR2', Java.ORDER_NONE) || '\"#000000\"';
     const ratio = Java.valueToCode(block, 'RATIO', Java.ORDER_NONE) || 0;
     const code = functionName + '(' + colour1 + ', ' + colour2 + ', ' + ratio + ')';
     return [code, Java.ORDER_FUNCTION_CALL];
