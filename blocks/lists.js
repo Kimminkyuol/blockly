@@ -103,7 +103,7 @@ defineBlocksWithJsonArray([
       {
         'type': 'input_value',
         'name': 'VALUE',
-        'check': ['String', 'Array'],
+        'check': ['Array'],
       },
     ],
     'output': 'Number',
