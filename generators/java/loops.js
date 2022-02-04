@@ -112,24 +112,11 @@ Java['controls_forEach'] = function (block) {
 
 Java['controls_flow_statements'] = function (block) {
     // Flow statements: continue, break.
-    let xfix = '';
-    if (Java.STATEMENT_PREFIX) {
-        xfix += Java.injectId(Java.STATEMENT_PREFIX, block);
-    }
-    if (Java.STATEMENT_SUFFIX) {
-        xfix += Java.injectId(Java.STATEMENT_SUFFIX, block);
-    }
-    if (Java.STATEMENT_PREFIX) {
-        const loop = block.getSurroundLoop();
-        if (loop && !loop.suppressPrefixSuffix) {
-            xfix += Java.injectId(Java.STATEMENT_PREFIX, loop);
-        }
-    }
     switch (block.getFieldValue('FLOW')) {
         case 'BREAK':
-            return xfix + 'break;\n';
+            return 'break;\n';
         case 'CONTINUE':
-            return xfix + 'continue;\n';
+            return 'continue;\n';
     }
     throw Error('Unknown flow statement.');
 };
