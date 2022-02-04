@@ -2,7 +2,7 @@
   "chunk": [
     "blockly:257",
     "all:10:blockly",
-    "all1:5:blockly",
+    "all1:6:blockly",
     "all2:11:blockly",
     "all3:11:blockly",
     "all4:11:blockly",
@@ -277,6 +277,7 @@
     "./blocks/lists.js",
     "./blocks/colour.js",
     "./blocks/all.js",
+    "./generators/java/loops.js",
     "./generators/java/logic.js",
     "./generators/java/lists.js",
     "./generators/java.js",

@@ -81,12 +81,11 @@ Java.init = function (workspace) {
     const defVars = []
     const devVarList = Variables.allDeveloperVariables(workspace);
     for (let i = 0; i < devVarList.length; i++) {
-        defVars.push(
-            this.nameDB_.getName(devVarList[i], NameType.DEVELOPER_VARIABLE_TYPE));
+        defVars.push('Var' + this.nameDB_.getName(devVarList[i], NameType.VARIABLE) + ';');
     }
 
     if (defVars.length) {
-        this.definitions_['variables'] = 'int ' + defVars.join(', ') + ';';
+        this.definitions_['variables'] = defVars.join('\n');
     }
     this.isInitialized = true;
 };
@@ -107,7 +106,7 @@ Java.finish = function (code) {
 
     this.nameDB_.reset();
     const allDefs = imports.join('\n') + '\n\n' + definitions.join('\n\n');
-    return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + '\n\n\n' + code;
+    return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
 };
 
 Java.scrubNakedValue = function (line) {
