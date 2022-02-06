@@ -119,10 +119,10 @@ Java['lists_getIndex'] = function (block) {
         case ('FROM_END'): {
             const at = Java.getAdjustedInt(block, 'AT');
             if (mode === 'GET') {
-                const code = '((ArrayList) ' + list + '.get(((ArrayList) ' + list + ').size() - ' + at + ') - 1)';
+                const code = '((ArrayList) ' + list + '.get(((ArrayList) ' + list + ').size() - ' + at + ' - 1)';
                 return [code, Java.ORDER_MEMBER];
             } else {
-                const code = '((ArrayList) ' + list + '.remove(((ArrayList) ' + list + ').size() - ' + at + ') - 1)';
+                const code = '((ArrayList) ' + list + '.remove(((ArrayList) ' + list + ').size() - ' + at + ' - 1)';
                 if (mode === 'GET_REMOVE') {
                     return [code, Java.ORDER_FUNCTION_CALL]
                 } else if (mode === 'REMOVE') {
