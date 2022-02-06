@@ -23,7 +23,7 @@ Java['controls_repeat_ext'] = function (block) {
         endVar = Java.nameDB_.getDistinctName('repeat_end', NameType.VARIABLE);
         code += 'int ' + endVar + ' = ' + repeats + ';\n';
     }
-    code += 'for (int ' + loopVar + ' = 0; ' + loopVar + ' < ' + endVar + '; ' + loopVar + '++) {\n' + branch + '}\n';
+    code += 'for (int ' + loopVar + ' = 0; ' + loopVar + ' < ' + endVar + loopVar + '++) {\n' + branch + '}\n';
     return code;
 }
 
@@ -95,18 +95,18 @@ Java['controls_forEach'] = function (block) {
     // For each loop.
     Java.definitions_['import_ArrayList'] = 'import java.util.ArrayList;';
     const variable0 = Java.nameDB_.getName(block.getFieldValue('VAR'), NameType.VARIABLE);
-    const argument0 = Java.valueToCode(block, 'LIST', Java.ORDER_ASSIGNMENT) || 'new Var(new ArrayList<>())';
+    const argument0 = Java.valueToCode(block, 'LIST', Java.ORDER_ASSIGNMENT) || 'new ArrayList<>()';
     let branch = Java.statementToCode(block, 'DO');
     branch = Java.addLoopTrap(branch, block);
     let code = '';
     let listVar = argument0;
     if (!argument0.match(/^\w+$/)) {
         listVar = Java.nameDB_.getDistinctName(variable0 + '_list', NameType.VARIABLE);
-        code += 'Var ' + listVar + ' = ' + argument0 + ';\n';
+        code += 'Object ' + listVar + ' = ' + argument0 + ';\n';
     }
     const indexVar = Java.nameDB_.getDistinctName(variable0 + '_value', NameType.VARIABLE);
     branch = Java.INDENT + variable0 + ' = ' + indexVar + ';\n' + branch;
-    code += 'for (Var ' + indexVar + ' : ' + listVar + '.toList()) {\n' + branch + '}\n';
+    code += 'for (Object ' + indexVar + ' : (ArrayList) ' + listVar + ') {\n' + branch + '}\n';
     return code;
 };
 

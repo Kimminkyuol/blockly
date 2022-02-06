@@ -17,8 +17,8 @@ Java.addReservedWords(
     'false,null,true,' +
     'abs,divmod,input,open,staticmethod,all,enumerate,int,ord,str,any,eval,isinstance,pow,sum,basestring,execfile,issubclass,print,super,bin,file,iter,property,tuple,bool,filter,len,range,type,bytearray,float,list,raw_input,unichr,callable,format,locals,reduce,unicode,chr,frozenset,long,reload,vars,classmethod,getattr,map,repr,xrange,cmp,globals,max,reversed,zip,compile,hasattr,memoryview,round,__import__,complex,hash,min,set,apply,delattr,help,next,setattr,buffer,dict,hex,object,slice,coerce,dir,id,oct,sorted,intern,equal');
 
-Java.ORDER_ATOMIC = 0;  // 0 "" ...
-Java.ORDER_COLLECTION = 1;  // tuples, lists, dictionaries
+Java.ORDER_ATOMIC = 0;            // 0 "" ...
+Java.ORDER_COLLECTION = 1;        // tuples, lists, dictionaries
 Java.ORDER_STRING_CONVERSION = 1; // `expression...`
 Java.ORDER_MEMBER = 2;            // . []
 Java.ORDER_FUNCTION_CALL = 2;     // ()
@@ -81,7 +81,7 @@ Java.init = function (workspace) {
     const defVars = []
     const devVarList = Variables.allDeveloperVariables(workspace);
     for (let i = 0; i < devVarList.length; i++) {
-        defVars.push('Var' + this.nameDB_.getName(devVarList[i], NameType.VARIABLE) + ';');
+        defVars.push('Object' + this.nameDB_.getName(devVarList[i], NameType.VARIABLE) + ';');
     }
 
     if (defVars.length) {
@@ -150,14 +150,10 @@ Java.scrub_ = function (block, code, opt_thisOnly) {
     return commentCode + code + nextCode;
 };
 
-Java.getAdjusted = function (block, atId, opt_delta, opt_negate) {
+Java.getAdjustedInt = function (block, atId, opt_delta, opt_negate) {
     let delta = opt_delta || 0;
-    if (block.workspace.options.oneBasedIndex) {
-        delta--;
-    }
-    const defaultAtIndex = block.workspace.options.oneBasedIndex ? '1' : '0';
     const atOrder = delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
-    let at = this.valueToCode(block, atId, atOrder) || defaultAtIndex;
+    let at = this.valueToCode(block, atId, atOrder) || '0';
 
     if (stringUtils.isNumber(at)) {
         at = parseInt(at, 10) + delta;
@@ -166,11 +162,36 @@ Java.getAdjusted = function (block, atId, opt_delta, opt_negate) {
         }
     } else {
         if (delta > 0) {
-            at = '(int) (' + at + ' + ' + delta + ')';
+            at = '((Number) ' + at + ').intValue() + ' + delta + '';
         } else if (delta < 0) {
-            at = '(int) (' + at + ' - ' + -delta + ')';
+            at = '((Number) ' + at + ').intValue() - ' + -delta + ')';
         } else {
-            at = '(int) ' + at;
+            at = '((Number) ' + at + ').intValue()';
+        }
+        if (opt_negate) {
+            at = '-' + at;
+        }
+    }
+    return at;
+};
+
+Java.getAdjustedDouble = function (block, atId, opt_delta, opt_negate) {
+    let delta = opt_delta || 0;
+    const atOrder = delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
+    let at = this.valueToCode(block, atId, atOrder) || '1.0';
+
+    if (stringUtils.isNumber(at)) {
+        at = parseInt(at, 10) + delta;
+        if (opt_negate) {
+            at = -at
+        }
+    } else {
+        if (delta > 0) {
+            at = '((Number) ' + at + ').doubleValue() + ' + delta + '';
+        } else if (delta < 0) {
+            at = '((Number) ' + at + ').doubleValue() - ' + -delta + ')';
+        } else {
+            at = '((Number) ' + at + ').doubleValue()';
         }
         if (opt_negate) {
             at = '-' + at;

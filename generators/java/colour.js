@@ -10,7 +10,7 @@ Java['colour_picker'] = function (block) {
     return [code, Java.ORDER_ATOMIC];
 };
 
-Java['colour_random'] = function (block) {
+Java['colour_random'] = function () {
     // Generate a random colour.
     const functionName = Java.provideFunction_('colourRandom', [
         'public static String ' + Java.FUNCTION_NAME_PLACEHOLDER_ + '() {',
@@ -24,9 +24,6 @@ Java['colour_random'] = function (block) {
 
 Java['colour_rgb'] = function (block) {
     // Compose a colour from RGB components expressed as percentages.
-    const red = Java.valueToCode(block, 'RED', Java.ORDER_NONE) || 0;
-    const green = Java.valueToCode(block, 'GREEN', Java.ORDER_NONE) || 0;
-    const blue = Java.valueToCode(block, 'BLUE', Java.ORDER_NONE) || 0;
     const functionName = Java.provideFunction_('colourRgb', [
         'public static String ' + Java.FUNCTION_NAME_PLACEHOLDER_ + '(double r, double g, double b) {',
         '    r = Math.round(Math.max(Math.min(r, 100), 0) * 2.55);',
@@ -34,10 +31,10 @@ Java['colour_rgb'] = function (block) {
         '    b = Math.round(Math.max(Math.min(b, 100), 0) * 2.55);',
         '    return String.format("#%02x%02x%02x", (int) r, (int) g, (int) b);', '}'
     ]);
-    const r = Java.valueToCode(block, 'RED', Java.ORDER_NONE) || 0;
-    const g = Java.valueToCode(block, 'GREEN', Java.ORDER_NONE) || 0;
-    const b = Java.valueToCode(block, 'BLUE', Java.ORDER_NONE) || 0;
-    const code = functionName + '(' + r + ', ' + g + ', ' + b + ')';
+    const red = Java.valueToCode(block, 'RED', Java.ORDER_NONE) || 0;
+    const green = Java.valueToCode(block, 'GREEN', Java.ORDER_NONE) || 0;
+    const blue = Java.valueToCode(block, 'BLUE', Java.ORDER_NONE) || 0;
+    const code = functionName + '(' + red + ', ' + green + ', ' + blue + ')';
     return [code, Java.ORDER_FUNCTION_CALL];
 };
 
