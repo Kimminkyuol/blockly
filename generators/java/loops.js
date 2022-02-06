@@ -23,7 +23,7 @@ Java['controls_repeat_ext'] = function (block) {
         endVar = Java.nameDB_.getDistinctName('repeat_end', NameType.VARIABLE);
         code += 'int ' + endVar + ' = ' + repeats + ';\n';
     }
-    code += 'for (int ' + loopVar + ' = 0; ' + loopVar + ' < ' + endVar + loopVar + '++) {\n' + branch + '}\n';
+    code += 'for (int ' + loopVar + ' = 0; ' + loopVar + ' < ' + endVar + '; ' + loopVar + '++) {\n' + branch + '}\n';
     return code;
 }
 
