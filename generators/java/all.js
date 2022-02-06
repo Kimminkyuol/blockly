@@ -8,3 +8,4 @@ goog.require('Blockly.Java.logic');
 goog.require('Blockly.Java.loops');
 goog.require('Blockly.Java.math');
 goog.require('Blockly.Java.procedures');
+goog.require('Blockly.Java.text');

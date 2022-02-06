@@ -116,8 +116,8 @@ Java.scrubNakedValue = function (line) {
 Java.quote_ = function (string) {
     string = string.replace(/\\/g, '\\\\')
         .replace(/\n/g, '\\\n')
-        .replace(/'/g, '\\\'');
-    return '\'' + string + '\'';
+        .replace(/"/g, '\\\"');
+    return '"' + string + '"';
 };
 
 Java.multiline_quote_ = function (string) {
