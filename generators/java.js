@@ -150,9 +150,9 @@ Java.scrub_ = function (block, code, opt_thisOnly) {
     return commentCode + code + nextCode;
 };
 
-Java.getAdjustedInt = function (block, atId, opt_delta, opt_negate) {
+Java.getAdjustedInt = function (block, atId, order, opt_delta, opt_negate) {
     let delta = opt_delta || 0;
-    const atOrder = delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
+    const atOrder = order ? order : delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
     let at = this.valueToCode(block, atId, atOrder) || '0';
 
     if (stringUtils.isNumber(at)) {
@@ -162,9 +162,9 @@ Java.getAdjustedInt = function (block, atId, opt_delta, opt_negate) {
         }
     } else {
         if (delta > 0) {
-            at = '((Number) ' + at + ').intValue() + ' + delta + '';
+            at = '((Number) ' + at + ').intValue() + ' + delta;
         } else if (delta < 0) {
-            at = '((Number) ' + at + ').intValue() - ' + -delta + ')';
+            at = '((Number) ' + at + ').intValue() - ' + -delta;
         } else {
             at = '((Number) ' + at + ').intValue()';
         }
@@ -175,10 +175,10 @@ Java.getAdjustedInt = function (block, atId, opt_delta, opt_negate) {
     return at;
 };
 
-Java.getAdjustedDouble = function (block, atId, opt_delta, opt_negate) {
+Java.getAdjustedDouble = function (block, atId, order, opt_delta, opt_negate) {
     let delta = opt_delta || 0;
-    const atOrder = delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
-    let at = this.valueToCode(block, atId, atOrder) || '1.0';
+    const atOrder = order ? order : delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
+    let at = this.valueToCode(block, atId, atOrder) || '0.0';
 
     if (stringUtils.isNumber(at)) {
         at = parseInt(at, 10) + delta;
@@ -187,9 +187,9 @@ Java.getAdjustedDouble = function (block, atId, opt_delta, opt_negate) {
         }
     } else {
         if (delta > 0) {
-            at = '((Number) ' + at + ').doubleValue() + ' + delta + '';
+            at = '((Number) ' + at + ').doubleValue() + ' + delta;
         } else if (delta < 0) {
-            at = '((Number) ' + at + ').doubleValue() - ' + -delta + ')';
+            at = '((Number) ' + at + ').doubleValue() - ' + -delta;
         } else {
             at = '((Number) ' + at + ').doubleValue()';
         }
