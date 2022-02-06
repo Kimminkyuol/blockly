@@ -154,7 +154,7 @@ Java['text_getSubstring'] = function (block) {
     return [code, Java.ORDER_FUNCTION_CALL];
 };
 
-Python['text_changeCase'] = function (block) {
+Java['text_changeCase'] = function (block) {
     // Change capitalization.
     const OPERATORS = {
         'UPPERCASE': '.toUpperCase()',
@@ -162,7 +162,7 @@ Python['text_changeCase'] = function (block) {
         'TITLECASE': null
     };
     const operator = OPERATORS[block.getFieldValue('CASE')];
-    let text = Python.valueToCode(block, 'TEXT', Python.ORDER_MEMBER) || '\'\'';
+    let text = Java.valueToCode(block, 'TEXT', Java.ORDER_MEMBER) || '\'\'';
     text = 'String.valueOf(' + text + ')';
     let code;
     if (operator) {
@@ -172,7 +172,7 @@ Python['text_changeCase'] = function (block) {
         Java.definitions_['import_Collectors'] = 'import java.util.stream.Collectors;';
         code = 'Arrays.stream(' + text + '.split(" ")).map(word -> word.isEmpty() ? word : Character.toTitleCase(word.charAt(0)) + word.substring(1).toLowerCase()).collect(Collectors.joining(" "));'
     }
-    return [code, Python.ORDER_FUNCTION_CALL];
+    return [code, Java.ORDER_FUNCTION_CALL];
 };
 
 Java['text_trim'] = function (block) {
