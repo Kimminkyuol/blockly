@@ -307,7 +307,7 @@ Java['lists_split'] = function (block) {
             code = 'new ArrayList<>(Arrays.asList(' + input + '.split(' + delimiter + ')));';
             break;
         case 'JOIN':
-            const functionName = Java.provideFunction_("listsSplit", [
+            const functionName = Java.provideFunction_("listsJoin", [
                 'public static String ' + Java.FUNCTION_NAME_PLACEHOLDER_ + '(ArrayList<> array, String delimiter) {',
                 '    StringBuilder st = new StringBuilder();',
                 '    for (Object o : array) {',
