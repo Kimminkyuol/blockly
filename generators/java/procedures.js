@@ -44,36 +44,8 @@ Java['procedures_defreturn'] = function (block) {
     return null;
 };
 
-Java['procedures_defnoreturn'] = function (block) {
-    // Define a procedure without a return value.
-    const functionName = Java.nameDB_.getName(block.getFieldValue('NAME'), NameType.PROCEDURE);
-    let xFix1 = '';
-    if (Java.STATEMENT_PREFIX) {
-        xFix1 += Java.injectId(Java.STATEMENT_PREFIX, block);
-    }
-    if (Java.STATEMENT_SUFFIX) {
-        xFix1 += Java.injectId(Java.STATEMENT_SUFFIX, block);
-    }
-    if (xFix1) {
-        xFix1 = Java.prefixLines(xFix1, Java.INDENT);
-    }
-    let loopTrap = '';
-    if (Java.INFINITE_LOOP_TRAP) {
-        loopTrap = Java.prefixLines(
-            Java.injectId(Java.INFINITE_LOOP_TRAP, block),
-            Java.INDENT);
-    }
-    const branch = Java.statementToCode(block, 'STACK');
-    const args = [];
-    const variables = block.getVars();
-    for (let i = 0; i < variables.length; i++) {
-        args[i] = 'Object ' + Java.nameDB_.getName(variables[i], NameType.VARIABLE);
-    }
-    let code = 'public static void ' + functionName + '(' + args.join(', ') + ') {\n' + xFix1 + loopTrap + branch + '}';
-    code = Java.scrub_(block, code);
-    Java.definitions_['%' + functionName] = code;
-    return null;
-};
+// Defining a procedure without a return value uses the same generator as a procedure with a return value.
+Java['procedures_defnoreturn'] = Java['procedures_defreturn'];
 
 Java['procedures_callreturn'] = function (block) {
     // Call a procedure with a return value.
