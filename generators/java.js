@@ -105,7 +105,7 @@ Java.finish = function (code) {
     this.isInitialized = false;
 
     this.nameDB_.reset();
-    return imports.join('\n') + '\n\n' + 'public class Main {\n' + definitions.map(x => x.split('\n').map(y => '    ' + y).join('\n')).join('\n') + '\n' + code.split('\n').map(x => '    ' + x).join('\n') + '\n}'
+    return imports.join('\n') + '\n\n' + 'public class Main {\n\n' + definitions.map(x => x.split('\n').map(y => '    ' + y).join('\n')).join('\n') + '\n' + code.split('\n').map(x => '    ' + x).join('\n') + '\n}'
 };
 
 Java.scrubNakedValue = function (line) {
