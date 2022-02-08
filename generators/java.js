@@ -95,7 +95,7 @@ Java.finish = function (code) {
     const definitions = [];
     for (let name in this.definitions_) {
         const def = this.definitions_[name];
-        if (def.match(/^(from\s+\S+\s+)?import\s+\S+/)) {
+        if (def.match(/import\s+\S+/)) {
             imports.push(def);
         } else {
             definitions.push(def);
@@ -105,8 +105,7 @@ Java.finish = function (code) {
     this.isInitialized = false;
 
     this.nameDB_.reset();
-    const allDefs = imports.join('\n') + '\n\n' + definitions.join('\n\n');
-    return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
+    return imports.join('\n') + '\n\n' + 'public class Main {\n' + definitions.map(x => x.split('\n').map(y => '    ' + y).join('\n')).join('\n') + '\n' + code.split('\n').map(x => '    ' + x).join('\n') + '\n}'
 };
 
 Java.scrubNakedValue = function (line) {
