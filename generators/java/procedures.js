@@ -38,7 +38,8 @@ Java['procedures_defreturn'] = function (block) {
     for (let i = 0; i < variables.length; i++) {
         args[i] = 'Object ' + Java.nameDB_.getName(variables[i], NameType.VARIABLE);
     }
-    let code = 'public static Object ' + functionName + '(' + args.join(', ') + ') {\n' + xFix1 + loopTrap + branch + xFix2 + returnValue + '}';
+    const returnType = returnValue ? 'Object' : 'void';
+    let code = 'public static ' + returnType + ' ' + functionName + '(' + args.join(', ') + ') {\n' + xFix1 + loopTrap + branch + xFix2 + returnValue + '}';
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;
     return null;
