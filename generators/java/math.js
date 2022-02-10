@@ -8,8 +8,8 @@ const {NameType} = goog.require('Blockly.Names');
 Java['math_number'] = function (block) {
     // Numeric value.
     const code = Number(block.getFieldValue('NUM'));
-    const order = code >= 0 ? Java.ORDER_ATOMIC : Java.ORDER_UNARY_NEGATION;
-    return [code, order];
+    // const order = code >= 0 ? Java.ORDER_ATOMIC : Java.ORDER_UNARY_NEGATION;
+    return [code, Java.ORDER_ADDITIVE];
 };
 
 Java['math_arithmetic'] = function (block) {
@@ -167,7 +167,7 @@ Java['math_number_property'] = function (block) {
 
 Java['math_change'] = function (block) {
     // Add to a variable in place.
-    const argument0 = Java.getAdjustedDouble(block, 'DELTA', Java.ORDER_ADDITION);
+    const argument0 = Java.getAdjustedDouble(block, 'DELTA');
     const varName = Java.nameDB_.getName(block.getFieldValue('VAR'), NameType.VARIABLE);
     return '((Number) ' + varName + ').doubleValue() + ' + argument0 + ';\n';
 };
