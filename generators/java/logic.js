@@ -21,7 +21,7 @@ Java['controls_if'] = function (block) {
                 Java.INDENT
             ) + branchCode;
         }
-        code += (n > 0 ? 'else' : '') + 'if (' + conditionCode + ') {\n' + branchCode + '}';
+        code += (n > 0 ? 'else ' : '') + 'if (' + conditionCode + ') {\n' + branchCode + '}';
         n++;
     } while (block.getInput('IF' + n));
 
