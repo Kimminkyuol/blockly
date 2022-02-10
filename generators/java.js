@@ -84,6 +84,11 @@ Java.init = function (workspace) {
         defVars.push('Object' + this.nameDB_.getName(devVarList[i], NameType.VARIABLE) + ';');
     }
 
+    const variables = Variables.allUsedVarModels(workspace);
+    for (let i = 0; i < variables.length; i++) {
+        defVars.push('Object ' + this.nameDB_.getName(variables[i].getId(), NameType.VARIABLE) + ';');
+    }
+
     if (defVars.length) {
         this.definitions_['variables'] = defVars.join('\n');
     }
