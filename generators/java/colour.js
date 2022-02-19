@@ -16,7 +16,7 @@ Java['colour_random'] = function () {
         'public static String ' + Java.FUNCTION_NAME_PLACEHOLDER_ + '() {',
         '    double num = Math.floor(Math.random() * Math.pow(2, 24));',
         '    return String.format("#%06x", (int) num);',
-        '    return \'#\' + str.substring(str.length() - 6)', '}'
+        '    return \'#\' + str.substring(str.length() - 6);', '}'
     ]);
     const code = functionName + '()';
     return [code, Java.ORDER_FUNCTION_CALL];
