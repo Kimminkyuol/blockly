@@ -27,7 +27,7 @@ goog.addDependency('../../tests/mocha/field_test.js', ['Blockly.test.fieldTest']
 goog.addDependency('../../tests/mocha/field_textinput_test.js', ['Blockly.test.fieldTextInput'], ['Blockly.test.helpers'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../tests/mocha/field_variable_test.js', ['Blockly.test.fieldVariable'], ['Blockly.test.helpers'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../tests/mocha/flyout_test.js', ['Blockly.test.flyout'], ['Blockly.test.helpers', 'Blockly.test.toolboxHelpers'], {'lang': 'es6', 'module': 'goog'});
-goog.addDependency('../../tests/mocha/generator_test.js', ['Blockly.test.generator'], ['Blockly.Dart', 'Blockly.JavaScript', 'Blockly.Lua', 'Blockly.PHP', 'Blockly.Python', 'Blockly.test.helpers'], {'lang': 'es6', 'module': 'goog'});
+goog.addDependency('../../tests/mocha/generator_test.js', ['Blockly.test.generator'], ['Blockly.Java', 'Blockly.test.helpers'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../tests/mocha/gesture_test.js', ['Blockly.test.gesture'], ['Blockly.test.helpers'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../tests/mocha/input_test.js', ['Blockly.test.input'], ['Blockly.test.helpers'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../tests/mocha/insertion_marker_test.js', ['Blockly.test.insertionMarker'], ['Blockly.test.helpers'], {'lang': 'es6', 'module': 'goog'});
