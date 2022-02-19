@@ -3,7 +3,6 @@
 goog.module('Blockly.Java.lists');
 
 const Java = goog.require('Blockly.Java');
-const stringUtils = goog.require('Blockly.utils.string');
 const {NameType} = goog.require('Blockly.Names');
 
 Java['lists_create_empty'] = function () {
