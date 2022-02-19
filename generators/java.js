@@ -3,7 +3,6 @@
 goog.module('Blockly.Java')
 goog.module.declareLegacyNamespace()
 
-const objectUtils = goog.require('Blockly.utils.object');
 const stringUtils = goog.require('Blockly.utils.string');
 const Variables = goog.require('Blockly.Variables');
 const {Generator} = goog.require('Blockly.Generator');
