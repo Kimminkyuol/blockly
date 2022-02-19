@@ -3,6 +3,7 @@
 goog.module('Blockly.Java')
 goog.module.declareLegacyNamespace()
 
+const common = goog.require('Blockly.common');
 const stringUtils = goog.require('Blockly.utils.string');
 const Variables = goog.require('Blockly.Variables');
 const {Generator} = goog.require('Blockly.Generator');
@@ -109,7 +110,51 @@ Java.finish = function (code) {
     this.isInitialized = false;
 
     this.nameDB_.reset();
-    return imports.join('\n') + '\n\n' + 'public class Main {\n\n' + definitions.map(x => x.split('\n').map(y => '    ' + y).join('\n')).join('\n') + '\n' + code.split('\n').map(x => '    ' + x).join('\n') + '\n}'
+    return imports.join('\n') + '\n\n' + definitions.join('\n') + '\n' + code
+};
+
+Java.workspaceToCode = function (workspace, type, packageName, className) {
+    if (!workspace) {
+        console.warn('No workspace specified in workspaceToCode call.  Guessing.');
+        workspace = common.getMainWorkspace();
+    }
+    let code = [];
+    this.init(workspace);
+    const blocks = workspace.getTopBlocks(true);
+    for (let i = 0, block; (block = blocks[i]); i++) {
+        let line = this.blockToCode(block);
+        if (Array.isArray(line)) {
+            line = line[0];
+        }
+        if (line) {
+            if (block.outputConnection) {
+                line = this.scrubNakedValue(line);
+                if (this.STATEMENT_PREFIX && !block.suppressPrefixSuffix) {
+                    line = this.injectId(this.STATEMENT_PREFIX, block) + line;
+                }
+                if (this.STATEMENT_SUFFIX && !block.suppressPrefixSuffix) {
+                    line = line + this.injectId(this.STATEMENT_SUFFIX, block);
+                }
+            }
+            code.push(line);
+        }
+    }
+    code = code.join('\n');
+    code = this.finish(code);
+    code = code.replace(/^\s+\n/, '');
+    code = code.replace(/\n\s+$/, '\n');
+    code = code.replace(/[ \t]+\n/g, '\n');
+    const importName = type === 'event' ? 'org.bukkit.event.Listener;' : 'org.bukkit.command.CommandExecutor;'
+    const implementsName = type === 'event' ? 'Listener' : 'CommandExecutor'
+    code = 'package ' + packageName + '\n' +
+        '\n' +
+        'import ' + importName + '\n' +
+        '\n' +
+        'public class ' + className + ' implements ' + implementsName + ' {\n' +
+        '\n' +
+        code.split('\n').map(x => '    ' + x).join('\n') + '\n' + 
+        '}'
+    return code;
 };
 
 Java.scrubNakedValue = function (line) {
