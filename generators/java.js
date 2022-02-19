@@ -144,11 +144,11 @@ Java.workspaceToCode = function (workspace, type, packageName, className) {
     code = code.replace(/^\s+\n/, '');
     code = code.replace(/\n\s+$/, '\n');
     code = code.replace(/[ \t]+\n/g, '\n');
-    const importName = type === 'event' ? 'org.bukkit.event.Listener;' : 'org.bukkit.command.CommandExecutor;'
+    const importName = type === 'event' ? 'org.bukkit.event.Listener' : 'org.bukkit.command.CommandExecutor'
     const implementsName = type === 'event' ? 'Listener' : 'CommandExecutor'
-    code = 'package ' + packageName + '\n' +
+    code = 'package ' + packageName + ';\n' +
         '\n' +
-        'import ' + importName + '\n' +
+        'import ' + importName + ';\n' +
         '\n' +
         'public class ' + className + ' implements ' + implementsName + ' {\n' +
         '\n' +
