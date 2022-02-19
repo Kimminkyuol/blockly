@@ -113,26 +113,6 @@ const chunks = [
     name: 'java',
     entry: 'generators/java/all.js',
     exports: 'Blockly.Java',
-  }, {
-    name: 'javascript',
-    entry: 'generators/javascript/all.js',
-    exports: 'Blockly.JavaScript',
-  }, {
-    name: 'python',
-    entry: 'generators/python/all.js',
-    exports: 'Blockly.Python',
-  }, {
-    name: 'php',
-    entry: 'generators/php/all.js',
-    exports: 'Blockly.PHP',
-  }, {
-    name: 'lua',
-    entry: 'generators/lua/all.js',
-    exports: 'Blockly.Lua',
-  }, {
-    name: 'dart',
-    entry: 'generators/dart/all.js',
-    exports: 'Blockly.Dart',
   }
 ];
 
@@ -573,11 +553,6 @@ function buildAdvancedCompilationTest() {
  *     blockly_compressed.js
  *     blocks_compressed.js
  *     java_compressed.js
- *     javascript_compressed.js
- *     python_compressed.js
- *     php_compressed.js
- *     lua_compressed.js
- *     dart_compressed.js
  *     blockly_uncompressed.js
  *     msg/json/*.js
  *     test/deps*.js

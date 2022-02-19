@@ -216,21 +216,6 @@ function packageNode() {
       },{
         name: 'BlocklyJava',
         cjs: './java',
-      },{
-        name: 'BlocklyJS',
-        cjs: './javascript',
-      },{
-        name: 'BlocklyPython',
-        cjs: './python',
-      },{
-        name: 'BlocklyPHP',
-        cjs: './php',
-      },{
-        name: 'BlocklyLua',
-        cjs: './lua',
-      }, {
-        name: 'BlocklyDart',
-        cjs: './dart',
       }]))
     .pipe(gulp.rename('node.js'))
     .pipe(gulp.dest(RELEASE_DIR));
@@ -282,46 +267,6 @@ function packageGenerator(file, rename, namespace) {
  */
 function packageJava() {
     return packageGenerator('java_compressed.js', 'java.js', 'Java');
-};
-
-/**
- * This task wraps javascript_compressed.js into a UMD module.
- * @example import 'blockly/javascript';
- */
-function packageJavascript() {
-  return packageGenerator('javascript_compressed.js', 'javascript.js', 'JavaScript');
-};
-
-/**
- * This task wraps python_compressed.js into a UMD module.
- * @example import 'blockly/python';
- */
-function packagePython() {
-  return packageGenerator('python_compressed.js', 'python.js', 'Python');
-};
-
-/**
- * This task wraps lua_compressed.js into a UMD module.
- * @example import 'blockly/lua';
- */
-function packageLua() {
-  return packageGenerator('lua_compressed.js', 'lua.js', 'Lua');
-};
-
-/**
- * This task wraps dart_compressed.js into a UMD module.
- * @example import 'blockly/dart';
- */
-function packageDart() {
-  return packageGenerator('dart_compressed.js', 'dart.js', 'Dart');
-};
-
-/**
- * This task wraps php_compressed.js into a UMD module.
- * @example import 'blockly/php';
- */
-function packagePHP() {
-  return packageGenerator('php_compressed.js', 'php.js', 'PHP');
 };
 
 /**
@@ -440,11 +385,6 @@ const package = gulp.series(
         packageBlockly,
         packageBlocks,
         packageJava,
-        packageJavascript,
-        packagePython,
-        packageLua,
-        packageDart,
-        packagePHP,
         packageLocales,
         packageMedia,
         packageUMDBundle,
