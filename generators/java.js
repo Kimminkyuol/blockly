@@ -110,7 +110,7 @@ Java.finish = function (code) {
     this.isInitialized = false;
 
     this.nameDB_.reset();
-    return imports.join('\n') + '\n\n' + definitions.join('\n') + '\n' + code
+    return [imports, definitions, code]
 };
 
 Java.workspaceToCode = function (workspace, type, packageName, className) {
@@ -141,6 +141,10 @@ Java.workspaceToCode = function (workspace, type, packageName, className) {
     }
     code = code.join('\n');
     code = this.finish(code);
+    console.log(code);
+    const imports = code[0];
+    const definitions = code[1];
+    code = code[2];
     code = code.replace(/^\s+\n/, '');
     code = code.replace(/\n\s+$/, '\n');
     code = code.replace(/[ \t]+\n/g, '\n');
@@ -149,10 +153,12 @@ Java.workspaceToCode = function (workspace, type, packageName, className) {
     code = 'package ' + packageName + ';\n' +
         '\n' +
         'import ' + importName + ';\n' +
+        imports.join('\n') + '\n' +
         '\n' +
         'public class ' + className + ' implements ' + implementsName + ' {\n' +
         '\n' +
-        code.split('\n').map(x => '    ' + x).join('\n') + '\n' + 
+        definitions.map(x => x.split('\n').map(y => '    ' + y).join('\n')).join('\n\n') + '\n' +
+        code.split('\n').map(x => '    ' + x).join('\n') + '\n' +
         '}'
     return code;
 };

@@ -268,7 +268,7 @@ goog.addDependency('../../core/zoom_controls.js', ['Blockly.ZoomControls'], ['Bl
 goog.addDependency('../../generators/java.js', ['Blockly.Java'], ['Blockly.Generator', 'Blockly.Names', 'Blockly.Variables', 'Blockly.common', 'Blockly.inputTypes', 'Blockly.utils.string'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../generators/java/all.js', ['Blockly.Java.all'], ['Blockly.Java.colour', 'Blockly.Java.event', 'Blockly.Java.lists', 'Blockly.Java.logic', 'Blockly.Java.loops', 'Blockly.Java.math', 'Blockly.Java.procedures', 'Blockly.Java.text', 'Blockly.Java.variables', 'Blockly.Java.variablesDynamic'], {'module': 'goog'});
 goog.addDependency('../../generators/java/colour.js', ['Blockly.Java.colour'], ['Blockly.Java'], {'lang': 'es6', 'module': 'goog'});
-goog.addDependency('../../generators/java/event.js', ['Blockly.Java.event'], ['Blockly.Java'], {'lang': 'es6', 'module': 'goog'});
+goog.addDependency('../../generators/java/event.js', ['Blockly.Java.event'], ['Blockly.Java', 'Blockly.Names'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../generators/java/lists.js', ['Blockly.Java.lists'], ['Blockly.Java', 'Blockly.Names'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../generators/java/logic.js', ['Blockly.Java.logic'], ['Blockly.Java'], {'lang': 'es6', 'module': 'goog'});
 goog.addDependency('../../generators/java/loops.js', ['Blockly.Java.loops'], ['Blockly.Java', 'Blockly.Names', 'Blockly.utils.string'], {'lang': 'es6', 'module': 'goog'});
