@@ -141,7 +141,6 @@ Java.workspaceToCode = function (workspace, type, packageName, className) {
     }
     code = code.join('\n');
     code = this.finish(code);
-    console.log(code);
     const imports = code[0];
     const definitions = code[1];
     code = code[2];
