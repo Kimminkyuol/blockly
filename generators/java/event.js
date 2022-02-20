@@ -45,4 +45,4 @@ Java['event_at_time'] = function (block) {
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName2] = code;
     return null;
-}
+};
