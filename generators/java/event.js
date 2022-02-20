@@ -43,6 +43,25 @@ Java['event_at_time'] = function (block) {
         '        }\n' +
         '    }, 0L, 20L * 60);\n' + '}';
     code = Java.scrub_(block, code);
-    Java.definitions_['%' + functionName2] = code;
+    Java.definitions_['%' + functionName2 + hour + minute + ampm + world] = code;
+    return null;
+};
+
+Java['event_armor_change'] = function (block) {
+    // 마인크래프트 갑옷 변경시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerArmorChangeEvent'] = 'import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;';
+    const functionName = Java.nameDB_.getName('onArmorChange', NameType.PROCEDURE);
+    const eventItem = Java.nameDB_.getName(block.getFieldValue('ITEM'), NameType.VARIABLE);
+    const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerArmorChangeEvent event) {\n' +
+        '    ' + eventItem + ' = event.getPlayer();\n' +
+        '    ' + eventPlayer + ' = event.getNewItem();\n' +
+        '    ' + branch + '\n}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName + eventItem + eventPlayer] = code;
     return null;
 };

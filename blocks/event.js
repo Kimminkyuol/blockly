@@ -24,14 +24,14 @@ defineBlocksWithJsonArray([
             {
                 'type': 'field_dropdown',
                 'name': 'AMPM',
-                "options": [
+                'options': [
                     [
-                        "AM",
-                        "AM"
+                        'AM',
+                        'AM'
                     ],
                     [
-                        "PM",
-                        "PM"
+                        'PM',
+                        'PM'
                     ]
                 ]
             },
@@ -46,9 +46,34 @@ defineBlocksWithJsonArray([
             'type': 'input_statement',
             'name': 'DO',
         }],
-        "inputsInline": true,
+        'inputsInline': true,
         'colour': 65,
-        "tooltip": "",
-        "helpUrl": "",
+        'tooltip': '',
+        'helpUrl': '',
+    },
+    {
+        'type': 'event_armor_change',
+        'message0': 'on armor change',
+        'args0': [],
+        'message1': 'event item %1',
+        'args1': [{
+            'type': 'field_variable',
+            'name': 'ITEM',
+            'variable': 'eventItem',
+        }],
+        'message2': 'event player %1',
+        'args2': [{
+            'type': 'field_variable',
+            'name': 'PLAYER',
+            'variable': 'eventPlayer',
+        }],
+        'message3': '%1',
+        'args3': [{
+            'type': 'input_statement',
+            'name': 'DO',
+        }],
+        'colour': 65,
+        'tooltip': '',
+        'helpUrl': '',
     },
 ]);
