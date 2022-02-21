@@ -72,10 +72,29 @@ Java['event_bed_enter'] = function (block) {
     Java.definitions_['import_PlayerArmorChangeEvent'] = 'import org.bukkit.event.player.PlayerBedEnterEvent;';
     const functionName = Java.nameDB_.getName('onBedEnter', NameType.PROCEDURE);
     const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
+    const eventBlock = Java.nameDB_.getName(block.getFieldValue('BLOCK'), NameType.VARIABLE);
     let code =
         '@EventHandler\n' +
         'public void ' + functionName + '(PlayerBedEnterEvent event) {\n' +
-        '    ' + eventPlayer + ' = event.getPlayer();\n' + '}'
+        '    ' + eventPlayer + ' = event.getPlayer();\n' +
+        '    ' + eventBlock + ' = event.getBed();\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_bed_leave'] = function (block) {
+    // 마인크래프트 플레이어 침대에서 일어날시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerArmorChangeEvent'] = 'import org.bukkit.event.player.PlayerBedLeaveEvent;';
+    const functionName = Java.nameDB_.getName('onBedLeave', NameType.PROCEDURE);
+    const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
+    const eventBlock = Java.nameDB_.getName(block.getFieldValue('BLOCK'), NameType.VARIABLE);
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerBedLeaveEvent event) {\n' +
+        '    ' + eventPlayer + ' = event.getPlayer();\n' +
+        '    ' + eventBlock + ' = event.getBed();\n' + '}'
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;
     return null;
