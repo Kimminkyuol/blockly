@@ -43,7 +43,7 @@ Java['event_at_time'] = function (block) {
         '        }\n' +
         '    }, 0L, 20L * 60);\n' + '}';
     code = Java.scrub_(block, code);
-    Java.definitions_['%' + functionName2 + hour + minute + ampm + world] = code;
+    Java.definitions_['%' + functionName2] = code;
     return null;
 };
 
@@ -62,7 +62,7 @@ Java['event_armor_change'] = function (block) {
         '    ' + eventPlayer + ' = event.getNewItem();\n' +
         '    ' + branch + '\n}';
     code = Java.scrub_(block, code);
-    Java.definitions_['%' + functionName + eventItem + eventPlayer] = code;
+    Java.definitions_['%' + functionName] = code;
     return null;
 };
 
@@ -77,6 +77,6 @@ Java['event_bed_enter'] = function (block) {
         'public void ' + functionName + '(PlayerBedEnterEvent event) {\n' +
         '    ' + eventPlayer + ' = event.getPlayer();\n' + '}'
     code = Java.scrub_(block, code);
-    Java.definitions_['%' + functionName + eventPlayer] = code;
+    Java.definitions_['%' + functionName] = code;
     return null;
 };
