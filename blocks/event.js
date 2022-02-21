@@ -126,4 +126,29 @@ defineBlocksWithJsonArray([
         'tooltip': '',
         'helpUrl': '',
     },
+    {
+        'type': 'event_block_break',
+        'message0': 'on block break',
+        'args0': [],
+        'message1': 'event player %1',
+        'args1': [{
+            'type': 'field_variable',
+            'name': 'PLAYER',
+            'variable': 'eventPlayer',
+        }],
+        'message2': 'event block %1',
+        'args2': [{
+            'type': 'field_variable',
+            'name': 'BLOCK',
+            'variable': 'eventBlock',
+        }],
+        'message3': '%1',
+        'args3': [{
+            'type': 'input_statement',
+            'name': 'DO',
+        }],
+        'colour': 65,
+        'tooltip': '',
+        'helpUrl': '',
+    },
 ]);
