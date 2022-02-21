@@ -76,4 +76,23 @@ defineBlocksWithJsonArray([
         'tooltip': '',
         'helpUrl': '',
     },
+    {
+        'type': 'event_bed_enter',
+        'message0': 'on bed enter',
+        'args0': [],
+        'message1': 'event player %1',
+        'args1': [{
+            'type': 'field_variable',
+            'name': 'PLAYER',
+            'variable': 'eventPlayer',
+        }],
+        'message2': '%1',
+        'args2': [{
+            'type': 'input_statement',
+            'name': 'DO',
+        }],
+        'colour': 65,
+        'tooltip': '',
+        'helpUrl': '',
+    },
 ]);
