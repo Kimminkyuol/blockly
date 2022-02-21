@@ -104,17 +104,17 @@ Java['event_bed_leave'] = function (block) {
     return null;
 };
 
-Java['event_block_break'] = function (block) {
+Java['event_block_damage'] = function (block) {
     // 마인크래프트 블록 파괴 시작시 발생 이벤트
     Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
-    Java.definitions_['import_BlockBreakEvent'] = 'import org.bukkit.event.player.BlockBreakEvent;';
-    const functionName = Java.nameDB_.getName('onBlockBreak', NameType.PROCEDURE);
+    Java.definitions_['import_BlockDamageEvent'] = 'import org.bukkit.event.player.BlockDamageEvent;';
+    const functionName = Java.nameDB_.getName('onBlockDamage', NameType.PROCEDURE);
     const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
     const eventBlock = Java.nameDB_.getName(block.getFieldValue('BLOCK'), NameType.VARIABLE);
     const branch = Java.statementToCode(block, 'DO');
     let code =
         '@EventHandler\n' +
-        'public void ' + functionName + '(BlockBreakEvent event) {\n' +
+        'public void ' + functionName + '(BlockDamageEvent event) {\n' +
         '    ' + eventPlayer + ' = event.getPlayer();\n' +
         '    ' + eventBlock + ' = event.getBlock();\n' +
         '    ' + branch + '\n}'
@@ -133,6 +133,25 @@ Java['event_block_grow'] = function (block) {
     let code =
         '@EventHandler\n' +
         'public void ' + functionName + '(BlockGrowEvent event) {\n' +
+        '    ' + eventBlock + ' = event.getBlock();\n' +
+        '    ' + branch + '\n}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_block_break'] = function (block) {
+    // 마인크래프트 파괴시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_BlockBreakEvent'] = 'import org.bukkit.event.player.BlockBreakEvent;';
+    const functionName = Java.nameDB_.getName('onBlockBreak', NameType.PROCEDURE);
+    const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
+    const eventBlock = Java.nameDB_.getName(block.getFieldValue('BLOCK'), NameType.VARIABLE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(BlockBreakEvent event) {\n' +
+        '    ' + eventPlayer + ' = event.getPlayer();\n' +
         '    ' + eventBlock + ' = event.getBlock();\n' +
         '    ' + branch + '\n}'
     code = Java.scrub_(block, code);
