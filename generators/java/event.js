@@ -107,7 +107,7 @@ Java['event_bed_leave'] = function (block) {
 Java['event_block_damage'] = function (block) {
     // 마인크래프트 블록 파괴 시작시 발생 이벤트
     Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
-    Java.definitions_['import_BlockDamageEvent'] = 'import org.bukkit.event.player.BlockDamageEvent;';
+    Java.definitions_['import_BlockDamageEvent'] = 'import org.bukkit.event.block.BlockDamageEvent;';
     const functionName = Java.nameDB_.getName('onBlockDamage', NameType.PROCEDURE);
     const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
     const eventBlock = Java.nameDB_.getName(block.getFieldValue('BLOCK'), NameType.VARIABLE);
@@ -126,7 +126,7 @@ Java['event_block_damage'] = function (block) {
 Java['event_block_grow'] = function (block) {
     // 마인크래프트 블록 성장시 발생 이벤트
     Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
-    Java.definitions_['import_BlockGrowEvent'] = 'import org.bukkit.event.player.BlockGrowEvent;';
+    Java.definitions_['import_BlockGrowEvent'] = 'import org.bukkit.event.block.BlockGrowEvent;';
     const functionName = Java.nameDB_.getName('onBlockGrow', NameType.PROCEDURE);
     const eventBlock = Java.nameDB_.getName(block.getFieldValue('BLOCK'), NameType.VARIABLE);
     const branch = Java.statementToCode(block, 'DO');
@@ -143,7 +143,7 @@ Java['event_block_grow'] = function (block) {
 Java['event_block_break'] = function (block) {
     // 마인크래프트 파괴시 발생 이벤트
     Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
-    Java.definitions_['import_BlockBreakEvent'] = 'import org.bukkit.event.player.BlockBreakEvent;';
+    Java.definitions_['import_BlockBreakEvent'] = 'import org.bukkit.event.block.BlockBreakEvent;';
     const functionName = Java.nameDB_.getName('onBlockBreak', NameType.PROCEDURE);
     const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
     const eventBlock = Java.nameDB_.getName(block.getFieldValue('BLOCK'), NameType.VARIABLE);
@@ -153,6 +153,23 @@ Java['event_block_break'] = function (block) {
         'public void ' + functionName + '(BlockBreakEvent event) {\n' +
         '    ' + eventPlayer + ' = event.getPlayer();\n' +
         '    ' + eventBlock + ' = event.getBlock();\n' +
+        '    ' + branch + '\n}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_chat'] = function (block) {
+    // 마인크래프트 채팅시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_AsyncPlayerChatEvent'] = 'import org.bukkit.event.player.AsyncPlayerChatEvent;';
+    const functionName = Java.nameDB_.getName('onChat', NameType.PROCEDURE);
+    const eventPlayer = Java.nameDB_.getName(block.getFieldValue('PLAYER'), NameType.VARIABLE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(AsyncPlayerChatEvent event) {\n' +
+        '    ' + eventPlayer + ' = event.getPlayer();\n' +
         '    ' + branch + '\n}'
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;
