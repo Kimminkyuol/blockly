@@ -17,6 +17,7 @@ Blocks['event_get'] = {
                 ["event-new-item", "EVENT_NEW_ITEM"],
                 ["event-old-item", "EVENT_OLD_ITEM"],
                 ["event-drop-item", "EVENT_DROP_ITEM"],
+                ["event-caught-item", "EVENT_CAUGHT_ITEM"],
                 ["event-block", "EVENT_BLOCK"],
                 ["event-world", "EVENT_WORLD"],
                 ["event-bed", "EVENT_BED"],
@@ -47,6 +48,9 @@ Blocks['event_get'] = {
                 return block;
             } else if (block.dropItem_ && type === "EVENT_DROP_ITEM") {
                 this.setOutput(true, "Item");
+                return block;
+            } else if (block.caughtItem_ && type === "EVENT_CAUGHT_ITEM") {
+                this.setOutput(true, "Entity");
                 return block;
             } else if (block.block_ && type === "EVENT_BLOCK") {
                 this.setOutput(true, "Block");
@@ -439,6 +443,20 @@ Blocks['event_block_explode'] = {
         this.setTooltip("");
         this.setHelpUrl("");
         this.block_ = true;
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_fish'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('on fish');
+        this.appendStatementInput('DO')
+            .setCheck(null);
+        this.setColour(65);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.caughtItem_ = true;
         this.cancel_ = true;
     }
 };

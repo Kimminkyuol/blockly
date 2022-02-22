@@ -17,6 +17,8 @@ Java['event_get'] = function (block) {
             return ['event.getOldItem()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_DROP_ITEM':
             return ['event.getItemDrop()', Java.ORDER_FUNCTION_CALL];
+        case 'EVENT_CAUGHT_ITEM':
+            return ['event.getCaught()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_BLOCK':
             return ['event.getBlock()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_WORLD':
@@ -392,6 +394,21 @@ Java['event_block_explode'] = function (block) {
     let code =
         '@EventHandler\n' +
         'public void ' + functionName + '(BlockExplodeEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_fish'] = function (block) {
+    // 마인크래프트 낚시 성공시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerFishEvent'] = 'import org.bukkit.event.player.PlayerFishEvent';
+    const functionName = Java.nameDB_.getName('onFish', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerFishEvent) {\n' +
         '    ' + branch + '\n' + '}'
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;
