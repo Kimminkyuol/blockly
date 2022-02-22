@@ -23,6 +23,8 @@ Java['event_get'] = function (block) {
             return ['event.getOffHandItem()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_OFF_HAND_ITEM':
             return ['event.getCaught()', Java.ORDER_FUNCTION_CALL];
+        case 'EVENT_FOOD_LEVEL':
+            return ['event.getFoodLevel()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_BLOCK':
             return ['event.getBlock()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_WORLD':
@@ -428,6 +430,21 @@ Java['event_swap'] = function (block) {
     let code =
         '@EventHandler\n' +
         'public void ' + functionName + '(PlayerSwapHandItemsEvent) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_food_level_change'] = function (block) {
+    // 마인크래프트 배고픔 바 변경시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_FoodLevelChangeEvent'] = 'import org.bukkit.event.entity.FoodLevelChangeEvent';
+    const functionName = Java.nameDB_.getName('onFoodLevelChange', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(FoodLevelChangeEvent) {\n' +
         '    ' + branch + '\n' + '}'
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;

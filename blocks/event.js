@@ -20,6 +20,7 @@ Blocks['event_get'] = {
                 ["event-caught-item", "EVENT_CAUGHT_ITEM"],
                 ["event-main-hand-item", "EVENT_MAIN_HAND_ITEM"],
                 ["event-off-hand-item", "EVENT_OFF_HAND_ITEM"],
+                ["event-food-level", "EVENT_FOOD_LEVEL"],
                 ["event-block", "EVENT_BLOCK"],
                 ["event-world", "EVENT_WORLD"],
                 ["event-bed", "EVENT_BED"],
@@ -59,6 +60,9 @@ Blocks['event_get'] = {
                 return block;
             } else if (block.offHandItem_ && type === "EVENT_OFF_HAND_ITEM") {
                 this.setOutput(true, "ItemStack");
+                return block;
+            } else if (block.foodLevel_ && type === "EVENT_FOOD_LEVEL") {
+                this.setOutput(true, "Number");
                 return block;
             } else if (block.block_ && type === "EVENT_BLOCK") {
                 this.setOutput(true, "Block");
@@ -481,6 +485,21 @@ Blocks['event_swap'] = {
         this.player_ = true;
         this.mainHandItem_ = true;
         this.offHandItem_ = true;
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_food_level_change'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('on food level change');
+        this.appendStatementInput('DO')
+            .setCheck(null);
+        this.setColour(65);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.player_ = true;
+        this.foodLevel_ = true;
         this.cancel_ = true;
     }
 };
