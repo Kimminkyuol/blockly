@@ -411,5 +411,34 @@ Blocks['event_player_drop'] = {
         this.setHelpUrl("");
         this.player_ = true;
         this.dropItem_ = true;
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_entity_explode'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('on entity explode');
+        this.appendStatementInput('DO')
+            .setCheck(null);
+        this.setColour(65);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.entity_ = true;
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_block_explode'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('on block explode');
+        this.appendStatementInput('DO')
+            .setCheck(null);
+        this.setColour(65);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.block_ = true;
+        this.cancel_ = true;
     }
 };

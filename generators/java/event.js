@@ -356,12 +356,42 @@ Java['event_entity_death'] = function (block) {
 Java['event_player_drop'] = function (block) {
     // 마인크래프트 플레이어 아이템 드롭시 발생 이벤트
     Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
-    Java.definitions_['import_PlayerDropItemEvent'] = 'import org.bukkit.event.entity.PlayerDropItemEvent;';
+    Java.definitions_['import_PlayerDropItemEvent'] = 'import org.bukkit.event.player.PlayerDropItemEvent;';
     const functionName = Java.nameDB_.getName('onPlayerDrop', NameType.PROCEDURE);
     const branch = Java.statementToCode(block, 'DO');
     let code =
         '@EventHandler\n' +
         'public void ' + functionName + '(PlayerDropItemEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_entity_explode'] = function (block) {
+    // 마인크래프트 엔티티 폭발시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_EntityExplodeEvent'] = 'import org.bukkit.event.entity.EntityExplodeEvent;';
+    const functionName = Java.nameDB_.getName('onEntityExplode', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(EntityExplodeEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_block_explode'] = function (block) {
+    // 마인크래프트 블록 폭발시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_BlockExplodeEvent'] = 'import org.bukkit.event.block.BlockExplodeEvent;';
+    const functionName = Java.nameDB_.getName('onBlockExplode', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(BlockExplodeEvent event) {\n' +
         '    ' + branch + '\n' + '}'
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;
