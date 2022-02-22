@@ -9,18 +9,24 @@ Java['event_get'] = function (block) {
     switch (block.getFieldValue('OPTION')) {
         case 'EVENT_PLAYER':
             return ['event.getPlayer()', Java.ORDER_FUNCTION_CALL];
+        case 'EVENT_ENTITY':
+            return ['event.getEntity()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_NEW_ITEM':
             return ['event.getNewItem()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_OLD_ITEM':
             return ['event.getOldItem()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_BLOCK':
             return ['event.getBlock()', Java.ORDER_FUNCTION_CALL];
+        case 'EVENT_WORLD':
+            return ['event.getWorld()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_BED':
             return ['event.getBed()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_MESSAGE':
             return ['event.getMessage()', Java.ORDER_FUNCTION_CALL];
+        case 'EVENT_CHUNK':
+            return ['event.getChunk()', Java.ORDER_FUNCTION_CALL];
     }
-    throw Error('Unknown get statement.');
+    throw Error('Unknown event get statement.');
 };
 
 Java['event_cancel'] = function () {
@@ -169,6 +175,147 @@ Java['event_chat'] = function (block) {
         '@EventHandler\n' +
         'public void ' + functionName + '(AsyncPlayerChatEvent event) {\n' +
         '    ' + branch + '\n}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_chunk_generate'] = function (block) {
+    // 마인크래프트 청크 생성시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_ChunkLoadEvent'] = 'import org.bukkit.event.world.ChunkLoadEvent;';
+    const functionName = Java.nameDB_.getName('onChunkGenerate', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(ChunkLoadEvent event) {\n' +
+        '    if (event.isNewChunk()) {\n' +
+        '        ' + branch + '\n' +
+        '    }\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_chunk_load'] = function (block) {
+    // 마인크래프트 청크 로드시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_ChunkLoadEvent'] = 'import org.bukkit.event.world.ChunkLoadEvent;';
+    const functionName = Java.nameDB_.getName('onChunkLoad', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(ChunkLoadEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_chunk_unload'] = function (block) {
+    // 마인크래프트 청크 언로드시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_ChunkUnloadEvent'] = 'import org.bukkit.event.world.ChunkUnloadEvent;';
+    const functionName = Java.nameDB_.getName('onChunkUnload', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(ChunkUnloadEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_click'] = function (block) {
+    // 마인크래프트 클릭시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_Action'] = 'import org.bukkit.event.block.Action;';
+    Java.definitions_['import_PlayerInteractEvent'] = 'import org.bukkit.event.player.PlayerInteractEvent;';
+    const functionName = Java.nameDB_.getName('onClick', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    const action = block.getFieldValue('ACTION') === 'LEFT' ? 'LEFT_CLICK_AIR' : 'RIGHT_CLICK_AIR';
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerInteractEvent event) {\n' +
+        '    if (event.getAction() == Action.' + action + ') {\n' +
+        '        ' + branch + '\n' +
+        '    }\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_command'] = function (block) {
+    // 마인크래프트 명령어 입력시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerCommandPreprocessEvent'] = 'import org.bukkit.event.player.PlayerCommandPreprocessEvent;';
+    const functionName = Java.nameDB_.getName('onCommand', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerCommandPreprocessEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_login'] = function (block) {
+    // 마인크래프트 로그인시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerLoginEvent'] = 'import org.bukkit.event.player.PlayerLoginEvent;';
+    const functionName = Java.nameDB_.getName('onLogin', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerLoginEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_consume'] = function (block) {
+    // 마인크래프트 음식 소비 완료시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerItemConsumeEvent'] = 'import org.bukkit.event.player.PlayerItemConsumeEvent;';
+    const functionName = Java.nameDB_.getName('onConsume', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerItemConsumeEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_creeper_power'] = function (block) {
+    // 마인크래프트 크리퍼 충전시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_CreeperPowerEvent'] = 'import org.bukkit.event.entity.CreeperPowerEvent;';
+    const functionName = Java.nameDB_.getName('onCreeperPower', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(CreeperPowerEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_entity_damage'] = function (block) {
+    // 마인크래프트 엔티티 피해를 받을시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_EntityDamageEvent'] = 'import org.bukkit.event.entity.EntityDamageEvent;';
+    const functionName = Java.nameDB_.getName('onEntityDamage', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(EntityDamageEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;
     return null;
