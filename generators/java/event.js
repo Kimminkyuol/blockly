@@ -15,6 +15,8 @@ Java['event_get'] = function (block) {
             return ['event.getNewItem()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_OLD_ITEM':
             return ['event.getOldItem()', Java.ORDER_FUNCTION_CALL];
+        case 'EVENT_DROP_ITEM':
+            return ['event.getItemDrop()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_BLOCK':
             return ['event.getBlock()', Java.ORDER_FUNCTION_CALL];
         case 'EVENT_WORLD':
@@ -345,6 +347,21 @@ Java['event_entity_death'] = function (block) {
     let code =
         '@EventHandler\n' +
         'public void ' + functionName + '(EntityDeathEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_player_drop'] = function (block) {
+    // 마인크래프트 플레이어 아이템 드롭시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerDropItemEvent'] = 'import org.bukkit.event.entity.PlayerDropItemEvent;';
+    const functionName = Java.nameDB_.getName('onPlayerDrop', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerDropItemEvent event) {\n' +
         '    ' + branch + '\n' + '}'
     code = Java.scrub_(block, code);
     Java.definitions_['%' + functionName] = code;

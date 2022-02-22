@@ -16,6 +16,7 @@ Blocks['event_get'] = {
                 ["event-entity", "EVENT_ENTITY"],
                 ["event-new-item", "EVENT_NEW_ITEM"],
                 ["event-old-item", "EVENT_OLD_ITEM"],
+                ["event-drop-item", "EVENT_DROP_ITEM"],
                 ["event-block", "EVENT_BLOCK"],
                 ["event-world", "EVENT_WORLD"],
                 ["event-bed", "EVENT_BED"],
@@ -43,6 +44,9 @@ Blocks['event_get'] = {
                 return block;
             } else if (block.oldItem_ && type === "EVENT_OLD_ITEM") {
                 this.setOutput(true, "ItemStack");
+                return block;
+            } else if (block.dropItem_ && type === "EVENT_DROP_ITEM") {
+                this.setOutput(true, "Item");
                 return block;
             } else if (block.block_ && type === "EVENT_BLOCK") {
                 this.setOutput(true, "Block");
@@ -393,5 +397,19 @@ Blocks['event_entity_death'] = {
         this.setTooltip("");
         this.setHelpUrl("");
         this.entity_ = true;
+    }
+};
+
+Blocks['event_player_drop'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('on player drop');
+        this.appendStatementInput('DO')
+            .setCheck(null);
+        this.setColour(65);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.player_ = true;
+        this.dropItem_ = true;
     }
 };
