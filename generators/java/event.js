@@ -320,3 +320,33 @@ Java['event_entity_damage'] = function (block) {
     Java.definitions_['%' + functionName] = code;
     return null;
 };
+
+Java['event_player_death'] = function (block) {
+    // 마인크래프트 플레이어 사망시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerDeathEvent'] = 'import org.bukkit.event.entity.PlayerDeathEvent;';
+    const functionName = Java.nameDB_.getName('onPlayerDeath', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(PlayerDeathEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};
+
+Java['event_entity_death'] = function (block) {
+    // 마인크래프트 엔티티 사망시 발생 이벤트
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_EntityDeathEvent'] = 'import org.bukkit.event.entity.EntityDeathEvent;';
+    const functionName = Java.nameDB_.getName('onEntityDeath', NameType.PROCEDURE);
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void ' + functionName + '(EntityDeathEvent event) {\n' +
+        '    ' + branch + '\n' + '}'
+    code = Java.scrub_(block, code);
+    Java.definitions_['%' + functionName] = code;
+    return null;
+};

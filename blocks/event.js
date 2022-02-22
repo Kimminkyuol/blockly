@@ -369,3 +369,29 @@ Blocks['event_entity_damage'] = {
         this.cancel_ = true;
     }
 };
+
+Blocks['event_player_death'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('on player death');
+        this.appendStatementInput('DO')
+            .setCheck(null);
+        this.setColour(65);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.entity_ = true;
+    }
+};
+
+Blocks['event_entity_death'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('on entity death');
+        this.appendStatementInput('DO')
+            .setCheck(null);
+        this.setColour(65);
+        this.setTooltip("");
+        this.setHelpUrl("");
+        this.entity_ = true;
+    }
+};
