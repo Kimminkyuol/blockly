@@ -4,9 +4,7 @@ goog.module('Blockly.blocks.event');
 
 const Events = goog.require('Blockly.Events');
 const {Blocks} = goog.require('Blockly.blocks');
-const {FieldNumber} = goog.require('Blockly.FieldNumber');
 const {FieldDropdown} = goog.require('Blockly.FieldDropdown');
-const {FieldTextInput} = goog.require('Blockly.FieldTextInput');
 
 Blocks['event_get'] = {
     init: function () {
@@ -25,7 +23,9 @@ Blocks['event_get'] = {
         while (block.getSurroundParent()) {
             block = block.getSurroundParent();
         }
-        if (block) this.gets_ = block.gets_ || this.gets_;
+        if (block && block.gets_) {
+            this.gets_ = block.gets_
+        }
         if (this.gets_) {
             let dropdownList = [];
             for (i in this.gets_) {
