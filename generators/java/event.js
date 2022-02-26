@@ -3,7 +3,6 @@
 goog.module('Blockly.Java.event');
 
 const Java = goog.require('Blockly.Java');
-const {NameType} = goog.require('Blockly.Names');
 
 Java['event_get'] = function (block) {
     // 이벤트 변수 가져오기
