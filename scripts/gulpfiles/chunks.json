@@ -1,8 +1,8 @@
 {
   "chunk": [
     "blockly:257",
-    "all:11:blockly",
-    "all1:12:blockly"
+    "all:12:blockly",
+    "all1:13:blockly"
   ],
   "js": [
     "./core/inject.js",
@@ -270,6 +270,7 @@
     "./blocks/loops.js",
     "./blocks/logic.js",
     "./blocks/lists.js",
+    "./blocks/executor.js",
     "./blocks/event.js",
     "./blocks/colour.js",
     "./blocks/all.js",
@@ -281,6 +282,7 @@
     "./generators/java/loops.js",
     "./generators/java/logic.js",
     "./generators/java/lists.js",
+    "./generators/java/executor.js",
     "./generators/java/event.js",
     "./generators/java.js",
     "./generators/java/colour.js",

@@ -228,6 +228,31 @@ Java.getAdjustedInt = function (block, atId, order, opt_delta, opt_negate) {
     return at;
 };
 
+Java.getAdjustedFloat = function (block, atId, order, opt_delta, opt_negate) {
+    let delta = opt_delta || 0;
+    const atOrder = order ? order : delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
+    let at = this.valueToCode(block, atId, atOrder) || '0.0';
+
+    if (stringUtils.isNumber(at)) {
+        at = parseInt(at, 10) + delta;
+        if (opt_negate) {
+            at = -at
+        }
+    } else {
+        if (delta > 0) {
+            at = '((Number) ' + at + ').floatValue() + ' + delta;
+        } else if (delta < 0) {
+            at = '((Number) ' + at + ').floatValue() - ' + -delta;
+        } else {
+            at = '((Number) ' + at + ').floatValue()';
+        }
+        if (opt_negate) {
+            at = '-' + at;
+        }
+    }
+    return at;
+};
+
 Java.getAdjustedDouble = function (block, atId, order, opt_delta, opt_negate) {
     let delta = opt_delta || 0;
     const atOrder = order ? order : delta ? this.ORDER_ADDITIVE : this.ORDER_NONE;
