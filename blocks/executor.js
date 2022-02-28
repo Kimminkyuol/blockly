@@ -3,7 +3,6 @@
 goog.module('Blockly.blocks.executor');
 
 const {Blocks} = goog.require('Blockly.blocks');
-const {FieldDropdown} = goog.require('Blockly.FieldDropdown');
 const {defineBlocksWithJsonArray} = goog.require('Blockly.common');
 
 defineBlocksWithJsonArray([
