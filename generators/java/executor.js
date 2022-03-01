@@ -161,7 +161,7 @@ Java['executor_set_block'] = function (block) {
     Java.definitions_['import_Location'] = 'import org.bukkit.Location;';
     const location = Java.valueToCode(block, 'LOCATION', Java.ORDER_NONE);
     const material = Java.valueToCode(block, 'MATERIAL', Java.ORDER_NONE);
-    return '((Location) ' + location + ').getBlock().setType((Material) ' + material + ');\n';
+    return '((Location) ' + location + ').getBlock().setType(Material.' + material + ');\n';
 };
 
 Java['executor_set_health'] = function (block) {

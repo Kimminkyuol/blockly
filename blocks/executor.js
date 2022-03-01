@@ -2,7 +2,6 @@
 
 goog.module('Blockly.blocks.executor');
 
-const {Blocks} = goog.require('Blockly.blocks');
 const {defineBlocksWithJsonArray} = goog.require('Blockly.common');
 
 defineBlocksWithJsonArray([
@@ -457,7 +456,7 @@ defineBlocksWithJsonArray([
             {
                 'type': 'input_value',
                 'name': 'MATERIAL',
-                'check': 'Material',
+                'check': 'String',
             },
         ],
         'inputsInline': true,
