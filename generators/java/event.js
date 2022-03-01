@@ -41,6 +41,7 @@ Java['event_player_interact'] = function (block) {
     // 마인크래프트 플레이어 상호작용 이벤트
     Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
     Java.definitions_['import_PlayerInteractEvent'] = 'import org.bukkit.event.player.PlayerInteractEvent;';
+    Java.definitions_['import_Action'] = 'import org.bukkit.event.block.Action;';
     const action = 'Action.' + block.getFieldValue('ACTION');
     const branch = Java.statementToCode(block, 'DO');
     let code =
