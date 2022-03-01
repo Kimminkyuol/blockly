@@ -9,6 +9,7 @@ goog.require('Blockly.Java.lists');
 goog.require('Blockly.Java.logic');
 goog.require('Blockly.Java.loops');
 goog.require('Blockly.Java.math');
+goog.require('Blockly.Java.player');
 goog.require('Blockly.Java.procedures');
 goog.require('Blockly.Java.text');
 goog.require('Blockly.Java.variables');
