@@ -123,5 +123,5 @@ Java['player_get_item'] = function (block) {
 Java['player_get_any'] = function (block) {
     Java.definitions_['import_MyPluginName'] = 'import MainPluginPath.MainPluginName;';
     const key = Java.valueToCode(block, 'KEY', Java.ORDER_NONE) || '"key"';
-    return ['MainPluginName.getDB().getData().put(' + key + ')', Java.ORDER_FUNCTION_CALL];
+    return ['MainPluginName.getDB().getData().get(' + key + ')', Java.ORDER_FUNCTION_CALL];
 };
