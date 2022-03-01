@@ -420,7 +420,7 @@ defineBlocksWithJsonArray([
             {
                 'type': 'input_value',
                 'name': 'POTION',
-                'check': 'PotionEffectType',
+                'check': 'String',
             },
             {
                 'type': 'input_value',

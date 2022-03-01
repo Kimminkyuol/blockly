@@ -149,11 +149,11 @@ Java['executor_potion'] = function (block) {
     Java.definitions_['import_PotionEffect'] = 'import org.bukkit.potion.PotionEffect;';
     Java.definitions_['import_PotionEffectType'] = 'import org.bukkit.potion.PotionEffectType;';
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
-    const potion = (block.getFieldValue(block, 'POTION', Java.ORDER_NONE) || 'PotionEffectType.SPEED');
+    const potion = (block.getFieldValue(block, 'POTION', Java.ORDER_NONE) || 'SPEED');
     const tier = Java.getAdjustedInt(block, 'TIER');
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
     const time = Java.getAdjustedInt(block, 'TIME');
-    return '((Player) ' + player + ').addPotionEffect(new PotionEffect((PotionEffectType) ' + potion + ', ' + time + ', ' + tier + '));\n';
+    return '((Player) ' + player + ').addPotionEffect(new PotionEffect(PotionEffectType.' + potion + ', ' + time + ', ' + tier + '));\n';
 };
 
 Java['executor_set_block'] = function (block) {
