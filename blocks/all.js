@@ -13,6 +13,7 @@
 goog.module('Blockly.blocks.all');
 
 goog.require('Blockly.blocks.colour');
+goog.require('Blockly.blocks.command');
 goog.require('Blockly.blocks.event');
 goog.require('Blockly.blocks.executor');
 goog.require('Blockly.blocks.lists');

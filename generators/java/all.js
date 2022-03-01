@@ -3,6 +3,7 @@
 goog.module('Blockly.Java.all');
 
 goog.require('Blockly.Java.colour');
+goog.require('Blockly.Java.command');
 goog.require('Blockly.Java.event');
 goog.require('Blockly.Java.executor');
 goog.require('Blockly.Java.lists');
