@@ -359,6 +359,181 @@ Blocks['event_inventory'] = {
     }
 };
 
+// ─── Additional entity events ──────────────────────────────────────────────────
+
+Blocks['event_entity_spawn'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on entity spawn');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when any entity spawns in the world.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-entity':      ['Entity', 'event.getEntity()'],
+            'event-entity-type': ['String', 'event.getEntityType().name()'],
+            'event-location':    ['Location', 'event.getEntity().getLocation()'],
+        };
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_entity_death'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on entity death');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a living entity dies.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-entity':      ['Entity', 'event.getEntity()'],
+            'event-entity-type': ['String', 'event.getEntityType().name()'],
+            'event-killer':      ['Player', 'event.getEntity().getKiller()'],
+            'event-location':    ['Location', 'event.getEntity().getLocation()'],
+        };
+        this.cancel_ = false;
+    }
+};
+
+Blocks['event_entity_explode'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on entity explode');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when an entity (creeper, TNT minecart, fireball, etc.) explodes.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-entity':   ['Entity',   'event.getEntity()'],
+            'event-location': ['Location', 'event.getLocation()'],
+        };
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_projectile_hit'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on projectile hit');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a projectile (arrow, snowball, trident, etc.) hits something.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-projectile':  ['Entity', 'event.getEntity()'],
+            'event-hit-entity':  ['Entity', 'event.getHitEntity()'],
+            'event-hit-block':   ['Block',  'event.getHitBlock()'],
+        };
+        this.cancel_ = false;
+    }
+};
+
+// ─── Additional player events ──────────────────────────────────────────────────
+
+Blocks['event_player_drop_item'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on player drop item');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a player drops an item from their inventory.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-player': ['Player',    'event.getPlayer()'],
+            'event-item':   ['ItemStack', 'event.getItemDrop().getItemStack()'],
+        };
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_player_pickup_item'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on player pick up item');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a player picks up an item from the ground.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-player': ['Player',    '(Player) event.getEntity()'],
+            'event-item':   ['ItemStack', 'event.getItem().getItemStack()'],
+        };
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_food_level_change'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on food level change');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a player\'s hunger level changes.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-player':     ['Player', '(Player) event.getEntity()'],
+            'event-food-level': ['Number', 'event.getFoodLevel()'],
+        };
+        this.cancel_ = true;
+    }
+};
+
+Blocks['event_player_level_change'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on player level change');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a player gains or loses an experience level.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-player':    ['Player', 'event.getPlayer()'],
+            'event-new-level': ['Number', 'event.getNewLevel()'],
+            'event-old-level': ['Number', 'event.getOldLevel()'],
+        };
+        this.cancel_ = false;
+    }
+};
+
+Blocks['event_player_sneak'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on player toggle sneak');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a player starts or stops sneaking.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-player':    ['Player',  'event.getPlayer()'],
+            'event-sneaking':  ['Boolean', 'event.isSneaking()'],
+        };
+        this.cancel_ = false;
+    }
+};
+
+Blocks['event_player_sprint'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on player toggle sprint');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a player starts or stops sprinting.');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-player':    ['Player',  'event.getPlayer()'],
+            'event-sprinting': ['Boolean', 'event.isSprinting()'],
+        };
+        this.cancel_ = false;
+    }
+};
+
+Blocks['event_player_teleport'] = {
+    init: function () {
+        this.appendDummyInput().appendField('on player teleport');
+        this.appendStatementInput('DO').setCheck(null).appendField('do');
+        this.setColour(65);
+        this.setTooltip('Fires when a player is teleported (including portal travel).');
+        this.setHelpUrl('');
+        this.gets_ = {
+            'event-player': ['Player',   'event.getPlayer()'],
+            'event-from':   ['Location', 'event.getFrom()'],
+            'event-to':     ['Location', 'event.getTo()'],
+        };
+        this.cancel_ = true;
+    }
+};
+
 // ─── Event damage modifier ─────────────────────────────────────────────────────
 
 defineBlocksWithJsonArray([

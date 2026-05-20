@@ -211,6 +211,157 @@ Java['event_entity_damage_by_entity'] = function (block) {
     return null;
 };
 
+// ─── Additional entity events ─────────────────────────────────────────────────
+
+Java['event_entity_spawn'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_EntitySpawnEvent'] = 'import org.bukkit.event.entity.EntitySpawnEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onEntitySpawn(EntitySpawnEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onEntitySpawn'] = code;
+    return null;
+};
+
+Java['event_entity_death'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_EntityDeathEvent'] = 'import org.bukkit.event.entity.EntityDeathEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onEntityDeath(EntityDeathEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onEntityDeath'] = code;
+    return null;
+};
+
+Java['event_entity_explode'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_EntityExplodeEvent'] = 'import org.bukkit.event.entity.EntityExplodeEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onEntityExplode(EntityExplodeEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onEntityExplode'] = code;
+    return null;
+};
+
+Java['event_projectile_hit'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_ProjectileHitEvent'] = 'import org.bukkit.event.entity.ProjectileHitEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onProjectileHit(ProjectileHitEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onProjectileHit'] = code;
+    return null;
+};
+
+// ─── Additional player events ─────────────────────────────────────────────────
+
+Java['event_player_drop_item'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerDropItemEvent'] = 'import org.bukkit.event.player.PlayerDropItemEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onPlayerDropItem(PlayerDropItemEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onPlayerDropItem'] = code;
+    return null;
+};
+
+Java['event_player_pickup_item'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_EntityPickupItemEvent'] = 'import org.bukkit.event.entity.EntityPickupItemEvent;';
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onEntityPickupItem(EntityPickupItemEvent event) {\n' +
+        '    if (!(event.getEntity() instanceof Player)) return;\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onEntityPickupItem'] = code;
+    return null;
+};
+
+Java['event_food_level_change'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_FoodLevelChangeEvent'] = 'import org.bukkit.event.entity.FoodLevelChangeEvent;';
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onFoodLevelChange(FoodLevelChangeEvent event) {\n' +
+        '    if (!(event.getEntity() instanceof Player)) return;\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onFoodLevelChange'] = code;
+    return null;
+};
+
+Java['event_player_level_change'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerLevelChangeEvent'] = 'import org.bukkit.event.player.PlayerLevelChangeEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onPlayerLevelChange(PlayerLevelChangeEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onPlayerLevelChange'] = code;
+    return null;
+};
+
+Java['event_player_sneak'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerToggleSneakEvent'] = 'import org.bukkit.event.player.PlayerToggleSneakEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onPlayerToggleSneak'] = code;
+    return null;
+};
+
+Java['event_player_sprint'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerToggleSprintEvent'] = 'import org.bukkit.event.player.PlayerToggleSprintEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onPlayerToggleSprint(PlayerToggleSprintEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onPlayerToggleSprint'] = code;
+    return null;
+};
+
+Java['event_player_teleport'] = function (block) {
+    Java.definitions_['import_EventHandler'] = 'import org.bukkit.event.EventHandler;';
+    Java.definitions_['import_PlayerTeleportEvent'] = 'import org.bukkit.event.player.PlayerTeleportEvent;';
+    const branch = Java.statementToCode(block, 'DO');
+    let code =
+        '@EventHandler\n' +
+        'public void onPlayerTeleport(PlayerTeleportEvent event) {\n' +
+        branch + '}';
+    code = Java.scrub_(block, code);
+    Java.definitions_['%onPlayerTeleport'] = code;
+    return null;
+};
+
 // ─── Inventory events ─────────────────────────────────────────────────────────
 
 Java['event_inventory'] = function (block) {

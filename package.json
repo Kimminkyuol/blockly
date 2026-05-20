@@ -37,7 +37,7 @@
   "devDependencies": {
     "@blockly/block-test": "^2.0.1",
     "@blockly/dev-tools": "^3.0.1",
-    "@blockly/theme-modern": "^2.1.1",
+    "@blockly/theme-modern": "^2.1.25",
     "chai": "^4.2.0",
     "clang-format": "^1.6.0",
     "closure-calculate-chunks": "^3.0.2",
