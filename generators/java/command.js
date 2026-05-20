@@ -11,7 +11,7 @@ Java['command'] = function (block) {
     let code =
         '@Override\n' +
         'public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {\n' +
-        '    ' + branch + '\n' +
+        branch +
         '    return true;\n' + '}';
     code = Java.scrub_(block, code);
     Java.definitions_['%onCommand'] = code;
@@ -23,7 +23,24 @@ Java['command_player'] = function () {
     return ['(Player) sender', Java.ORDER_NONE];
 };
 
+Java['command_get'] = function () {
+    return ['sender', Java.ORDER_NONE];
+};
+
 Java['command_arg'] = function (block) {
     const index = Java.valueToCode(block, 'INDEX', Java.ORDER_NONE) || '0';
     return ['args[' + index + ']', Java.ORDER_NONE];
+};
+
+Java['command_args_length'] = function () {
+    return ['args.length', Java.ORDER_NONE];
+};
+
+Java['command_has_args'] = function () {
+    return ['(args.length > 0)', Java.ORDER_NONE];
+};
+
+Java['command_check_sender_is_player'] = function () {
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    return ['(sender instanceof Player)', Java.ORDER_NONE];
 };
