@@ -29,7 +29,7 @@ Java['executor_clear_entity'] = function (block) {
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
     const radius = Java.getAdjustedDouble(block, 'RADIUS');
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
-    return '((Player) ' + player + ').getNearbyEntities(' + radius + ',' + radius + ',' + radius + ').stream().filter(entity -> entity instanceof Player).forEach(Entity::remove);\n';
+    return '((Player) ' + player + ').getNearbyEntities(' + radius + ', ' + radius + ', ' + radius + ').stream().filter(entity -> !(entity instanceof Player)).forEach(Entity::remove);\n';
 };
 
 Java['executor_clear_potion'] = function (block) {
@@ -89,7 +89,6 @@ Java['executor_explosion'] = function (block) {
 Java['executor_give'] = function (block) {
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
     Java.definitions_['import_ItemStack'] = 'import org.bukkit.inventory.ItemStack;';
-    Java.definitions_['import_Material'] = 'import org.bukkit.Material;';
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
     const item = Java.valueToCode(block, 'ITEM', Java.ORDER_NONE) || 'new ItemStack(Material.AIR)';
     return '((Player) ' + player + ').getInventory().addItem((ItemStack) ' + item + ');\n';
@@ -116,15 +115,14 @@ Java['executor_lightning'] = function (block) {
 
 Java['executor_log'] = function (block) {
     Java.definitions_['import_Bukkit'] = 'import org.bukkit.Bukkit;';
-    const text = Java.valueToCode(block, 'TEXT', Java.ORDER_NONE) || '\"\"';
+    const text = Java.valueToCode(block, 'TEXT', Java.ORDER_NONE) || '""';
     return 'Bukkit.getLogger().info((String) ' + text + ');\n';
 };
 
 Java['executor_message'] = function (block) {
-    Java.definitions_['import_Bukkit'] = 'import org.bukkit.Bukkit;';
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
-    const text = Java.valueToCode(block, 'TEXT', Java.ORDER_NONE) || '\"\"';
+    const text = Java.valueToCode(block, 'TEXT', Java.ORDER_NONE) || '""';
     return '((Player) ' + player + ').sendMessage((String) ' + text + ');\n';
 };
 
@@ -149,26 +147,26 @@ Java['executor_potion'] = function (block) {
     Java.definitions_['import_PotionEffect'] = 'import org.bukkit.potion.PotionEffect;';
     Java.definitions_['import_PotionEffectType'] = 'import org.bukkit.potion.PotionEffectType;';
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
-    const potion = (block.getFieldValue(block, 'POTION', Java.ORDER_NONE) || 'SPEED');
+    const potion = Java.valueToCode(block, 'POTION', Java.ORDER_NONE) || '"SPEED"';
     const tier = Java.getAdjustedInt(block, 'TIER');
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
     const time = Java.getAdjustedInt(block, 'TIME');
-    return '((Player) ' + player + ').addPotionEffect(new PotionEffect(PotionEffectType.' + potion + ', ' + time + ', ' + tier + '));\n';
+    return '((Player) ' + player + ').addPotionEffect(new PotionEffect(PotionEffectType.getByName((String) ' + potion + '), ' + time + ', ' + tier + '));\n';
 };
 
 Java['executor_set_block'] = function (block) {
     Java.definitions_['import_Material'] = 'import org.bukkit.Material;';
     Java.definitions_['import_Location'] = 'import org.bukkit.Location;';
     const location = Java.valueToCode(block, 'LOCATION', Java.ORDER_NONE);
-    const material = Java.valueToCode(block, 'MATERIAL', Java.ORDER_NONE);
-    return '((Location) ' + location + ').getBlock().setType(Material.' + material + ');\n';
+    const material = Java.valueToCode(block, 'MATERIAL', Java.ORDER_NONE) || '"STONE"';
+    return '((Location) ' + location + ').getBlock().setType(Material.valueOf((String) ' + material + '));\n';
 };
 
 Java['executor_set_health'] = function (block) {
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
     const health = Java.getAdjustedDouble(block, 'HEALTH');
-    return '((Player) ' + player + ').setHealthScale(' + health + ');\n';
+    return '((Player) ' + player + ').setHealth(' + health + ');\n';
 };
 
 Java['executor_set_saturation'] = function (block) {
@@ -181,8 +179,8 @@ Java['executor_set_saturation'] = function (block) {
 Java['executor_set_exp'] = function (block) {
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
-    const saturation = Java.getAdjustedFloat(block, 'EXP');
-    return '((Player) ' + player + ').setExp(' + saturation + ');\n';
+    const exp = Java.getAdjustedFloat(block, 'EXP');
+    return '((Player) ' + player + ').setExp(' + exp + ');\n';
 };
 
 Java['executor_set_walk_speed'] = function (block) {
@@ -202,15 +200,15 @@ Java['executor_set_fly_speed'] = function (block) {
 Java['executor_set_fly_mode'] = function (block) {
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
-    const mode = Java.valueToCode(block, 'MODE') || 'true';
-    return '((Player) ' + player + ').setFlying(' + mode + ');\n';
+    const mode = Java.valueToCode(block, 'MODE', Java.ORDER_NONE) || 'true';
+    return '((Player) ' + player + ').setFlying((boolean) ' + mode + ');\n';
 };
 
 Java['executor_set_game_mode'] = function (block) {
     Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
     Java.definitions_['import_GameMode'] = 'import org.bukkit.GameMode;';
     const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
-    const mode = Java.valueToCode(block, 'MODE') || 'SURVIVAL';
+    const mode = block.getFieldValue('GAME_MODE') || 'SURVIVAL';
     return '((Player) ' + player + ').setGameMode(GameMode.' + mode + ');\n';
 };
 
@@ -256,7 +254,7 @@ Java['executor_wait'] = function (block) {
     const time = Java.getAdjustedInt(block, 'TIME');
     const branch = Java.statementToCode(block, 'DO');
     let code = 'Bukkit.getScheduler().runTaskLater(MainPluginName.getInstance(), () -> {\n' +
-        '    ' + branch + '\n' + '}, ' + time + ');\n';
+        branch + '}, ' + time + ');\n';
     code = Java.scrub_(block, code);
     return code;
 };
@@ -265,5 +263,55 @@ Java['executor_weather'] = function (block) {
     Java.definitions_['import_Bukkit'] = 'import org.bukkit.Bukkit;';
     const world = Java.valueToCode(block, 'WORLD', Java.ORDER_NONE) || '"world"';
     const storm = Java.valueToCode(block, 'STORM', Java.ORDER_NONE) || 'true';
-    return 'Bukkit.getWorld(' + world + ').setStorm(' + storm + ');';
+    return 'Bukkit.getWorld((String) ' + world + ').setStorm((boolean) ' + storm + ');\n';
+};
+
+Java['executor_send_title'] = function (block) {
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
+    const title = Java.valueToCode(block, 'TITLE', Java.ORDER_NONE) || '""';
+    const subtitle = Java.valueToCode(block, 'SUBTITLE', Java.ORDER_NONE) || '""';
+    const fadeIn = Java.getAdjustedInt(block, 'FADE_IN');
+    const stay = Java.getAdjustedInt(block, 'STAY');
+    const fadeOut = Java.getAdjustedInt(block, 'FADE_OUT');
+    return '((Player) ' + player + ').sendTitle((String) ' + title + ', (String) ' + subtitle + ', ' + fadeIn + ', ' + stay + ', ' + fadeOut + ');\n';
+};
+
+Java['executor_play_sound'] = function (block) {
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    Java.definitions_['import_Sound'] = 'import org.bukkit.Sound;';
+    const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
+    const sound = Java.valueToCode(block, 'SOUND', Java.ORDER_NONE) || '"ENTITY_PLAYER_LEVELUP"';
+    const volume = Java.getAdjustedFloat(block, 'VOLUME');
+    const pitch = Java.getAdjustedFloat(block, 'PITCH');
+    return '((Player) ' + player + ').playSound(((Player) ' + player + ').getLocation(), Sound.valueOf((String) ' + sound + '), ' + volume + ', ' + pitch + ');\n';
+};
+
+Java['executor_set_item'] = function (block) {
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    Java.definitions_['import_ItemStack'] = 'import org.bukkit.inventory.ItemStack;';
+    const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
+    const slot = Java.getAdjustedInt(block, 'SLOT');
+    const item = Java.valueToCode(block, 'ITEM', Java.ORDER_NONE) || 'null';
+    return '((Player) ' + player + ').getInventory().setItem(' + slot + ', (ItemStack) ' + item + ');\n';
+};
+
+Java['executor_give_exp'] = function (block) {
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
+    const amount = Java.getAdjustedInt(block, 'AMOUNT');
+    return '((Player) ' + player + ').giveExp(' + amount + ');\n';
+};
+
+Java['executor_clear_inventory'] = function (block) {
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
+    return '((Player) ' + player + ').getInventory().clear();\n';
+};
+
+Java['executor_set_display_name'] = function (block) {
+    Java.definitions_['import_Player'] = 'import org.bukkit.entity.Player;';
+    const player = Java.valueToCode(block, 'PLAYER', Java.ORDER_NONE);
+    const name = Java.valueToCode(block, 'NAME', Java.ORDER_NONE) || '""';
+    return '((Player) ' + player + ').setDisplayName((String) ' + name + ');\n';
 };
