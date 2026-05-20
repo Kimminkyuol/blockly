@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockly Java — Plocky Playground</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header id="header">
+            <div class="header-left">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/>
+                    </svg>
+                </div>
+                <span class="title">Blockly Java <span class="subtitle">Playground</span></span>
+            </div>
+            <div class="header-center">
+                <div class="mode-tabs">
+                    <button class="mode-tab active" data-mode="event" onclick="switchMode('event')">Event Listener</button>
+                    <button class="mode-tab" data-mode="command" onclick="switchMode('command')">Command Handler</button>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-ghost" onclick="clearWorkspace()" title="Clear workspace">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    Clear
+                </button>
+                <button class="btn btn-primary" onclick="copyCode()" title="Copy generated code">
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    Copy Code
+                </button>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <div id="main">
+            <!-- Blockly workspace -->
+            <div id="workspace-container">
+                <div id="blockly-div"></div>
+            </div>
+
+            <!-- Resize handle -->
+            <div id="resize-handle" title="Drag to resize"></div>
+
+            <!-- Code panel -->
+            <div id="code-panel">
+                <div id="code-header">
+                    <div class="code-header-left">
+                        <span class="code-badge">Java</span>
+                        <span id="code-filename" class="code-filename">MyEvent.java</span>
+                    </div>
+                    <div class="code-header-right">
+                        <span id="copy-feedback" class="copy-feedback hidden">Copied!</span>
+                    </div>
+                </div>
+                <div id="code-output">
+                    <pre id="code-pre"><code id="code-content" class="language-java"></code></pre>
+                    <div id="code-placeholder">
+                        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="opacity:0.3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                        <p>Add blocks to generate Java code</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status bar -->
+        <div id="statusbar">
+            <span id="status-blocks">0 blocks</span>
+            <span id="status-mode" class="status-mode">Event Listener</span>
+            <span id="status-msg"></span>
+        </div>
+    </div>
+
+    <!-- Blockly injection point for toolbox -->
+    <xml id="toolbox-event" style="display:none">
+        <category name="Logic" colour="%{BKY_LOGIC_HUE}">
+            <block type="controls_if"></block>
+            <block type="logic_compare"></block>
+            <block type="logic_operation"></block>
+            <block type="logic_negate"></block>
+            <block type="logic_boolean"></block>
+            <block type="logic_ternary"></block>
+        </category>
+        <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+            <block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value></block>
+            <block type="controls_whileUntil"></block>
+            <block type="controls_for"><value name="FROM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="TO"><shadow type="math_number"><field name="NUM">10</field></shadow></value><value name="BY"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block>
+            <block type="controls_forEach"></block>
+            <block type="controls_flow_statements"></block>
+        </category>
+        <category name="Math" colour="%{BKY_MATH_HUE}">
+            <block type="math_number"><field name="NUM">0</field></block>
+            <block type="math_arithmetic"></block>
+            <block type="math_single"></block>
+            <block type="math_round"></block>
+            <block type="math_modulo"></block>
+            <block type="math_random_int"></block>
+        </category>
+        <category name="Text" colour="%{BKY_TEXTS_HUE}">
+            <block type="text"></block>
+            <block type="text_join"></block>
+            <block type="text_append"></block>
+            <block type="text_length"></block>
+            <block type="text_isEmpty"></block>
+            <block type="text_print"></block>
+        </category>
+        <category name="Lists" colour="%{BKY_LISTS_HUE}">
+            <block type="lists_create_with"></block>
+            <block type="lists_repeat"></block>
+            <block type="lists_length"></block>
+        </category>
+        <sep></sep>
+        <category name="Variables" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+        <category name="Functions" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+        <sep></sep>
+        <category name="&#9889; Event" colour="65">
+            <block type="event_cancel"></block>
+            <block type="event_get"></block>
+            <block type="event_server_state_change"></block>
+            <block type="event_player_interact"></block>
+            <block type="event_player_walk"></block>
+            <block type="event_inventory"></block>
+        </category>
+        <category name="&#9881;&#65039; Executor" colour="160">
+            <block type="executor_action_bar"><value name="TEXT"><shadow type="text"></shadow></value></block>
+            <block type="executor_broadcast"><value name="TEXT"><shadow type="text"></shadow></value></block>
+            <block type="executor_message"><value name="TEXT"><shadow type="text"></shadow></value></block>
+            <block type="executor_command"><value name="COMMAND"><shadow type="text"><field name="TEXT">help</field></shadow></value></block>
+            <block type="executor_kick"><value name="DUE"><shadow type="text"></shadow></value></block>
+            <block type="executor_kill"></block>
+            <block type="executor_teleport"></block>
+            <block type="executor_give"></block>
+            <block type="executor_set_game_mode"></block>
+            <block type="executor_set_health"><value name="HEALTH"><shadow type="math_number"></shadow></value></block>
+            <block type="executor_permission"><value name="PERMISSION"><shadow type="text"></shadow></value></block>
+            <block type="executor_log"><value name="TEXT"><shadow type="text"></shadow></value></block>
+            <block type="executor_wait"><value name="TIME"><shadow type="math_number"></shadow></value></block>
+        </category>
+        <category name="&#128100; Player" colour="230">
+            <block type="player_get_by_name"><value name="NAME"><shadow type="text"></shadow></value></block>
+            <block type="player_get_string"></block>
+            <block type="player_get_number"></block>
+            <block type="player_get_boolean"></block>
+            <block type="player_get_location"></block>
+            <block type="player_get_item"></block>
+        </category>
+        <category name="&#128205; Location" colour="290">
+            <block type="location">
+                <value name="WORLD"><shadow type="text"></shadow></value>
+                <value name="X"><shadow type="math_number"></shadow></value>
+                <value name="Y"><shadow type="math_number"></shadow></value>
+                <value name="Z"><shadow type="math_number"></shadow></value>
+            </block>
+        </category>
+    </xml>
+
+    <xml id="toolbox-command" style="display:none">
+        <category name="Logic" colour="%{BKY_LOGIC_HUE}">
+            <block type="controls_if"></block>
+            <block type="logic_compare"></block>
+            <block type="logic_operation"></block>
+            <block type="logic_boolean"></block>
+        </category>
+        <category name="Math" colour="%{BKY_MATH_HUE}">
+            <block type="math_number"></block>
+            <block type="math_arithmetic"></block>
+        </category>
+        <category name="Text" colour="%{BKY_TEXTS_HUE}">
+            <block type="text"></block>
+            <block type="text_join"></block>
+            <block type="text_print"></block>
+        </category>
+        <sep></sep>
+        <category name="Variables" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+        <category name="Functions" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+        <sep></sep>
+        <category name="&#128488;&#65039; Command" colour="120">
+            <block type="command_get"></block>
+        </category>
+        <category name="&#9881;&#65039; Executor" colour="160">
+            <block type="executor_message"><value name="TEXT"><shadow type="text"></shadow></value></block>
+            <block type="executor_broadcast"><value name="TEXT"><shadow type="text"></shadow></value></block>
+            <block type="executor_command"><value name="COMMAND"><shadow type="text"><field name="TEXT">help</field></shadow></value></block>
+            <block type="executor_teleport"></block>
+            <block type="executor_give"></block>
+            <block type="executor_set_game_mode"></block>
+            <block type="executor_permission"></block>
+            <block type="executor_log"><value name="TEXT"><shadow type="text"></shadow></value></block>
+        </category>
+        <category name="&#128100; Player" colour="230">
+            <block type="player_get_by_name"><value name="NAME"><shadow type="text"></shadow></value></block>
+            <block type="player_get_string"></block>
+            <block type="player_get_location"></block>
+        </category>
+    </xml>
+
+    <!-- Load Blockly + custom blocks -->
+    <script src="../../blockly_compressed.js"></script>
+    <script src="../../blocks_compressed.js"></script>
+    <script src="../../msg/js/en.js"></script>
+    <script src="../../java_compressed.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
